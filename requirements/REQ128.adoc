@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 128* {set:cellbgcolor:#CACCCE}|/req/core/128
+2+|All servers shall support the value application/atom+xml to indicate an ATOM feed entry.  
+|===

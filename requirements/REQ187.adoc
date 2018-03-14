@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 187* {set:cellbgcolor:#CACCCE}|/req/core/rest/187
+2+|Sending an empty request body to a URL formed by appending the AcceptChange KVP parameters (see <<AcceptChangeKVP>>) [with the exception of the SERVER, VERSION and REQUEST parameters] to the /accepted resource using the HTTP PUT method, shall signal that the proposed change identified using the ENTRYIDENTIFIER parameter has been accepted.
+|===

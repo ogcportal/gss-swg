@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 30* {set:cellbgcolor:#CACCCE}|/req/sub/rest/30
+2+|Servers that implement the REST binding of the Subscription conformance class shall offer the "/subscriptions" resource.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 278* {set:cellbgcolor:#CACCCE}|/req/sub/pox/278
+2+|Sending an XML-encoded Pause message to the Post URL listed in the server's capabilities document for the Pause operation, using the HTTP POST method, shall generate an XML-encoded response document containing a pubsub:PauseResponse message or an exceptions report (see <<Exception>>) if the operation fails.
+|===

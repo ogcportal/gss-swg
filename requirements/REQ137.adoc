@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 137* {set:cellbgcolor:#CACCCE}|/req/core/rest/137
+2+|The REST binding for publishing of feed entries to the server shall be performed as described by the ATOM Publishing Protocol (see IETF RFC 5023).
+|===

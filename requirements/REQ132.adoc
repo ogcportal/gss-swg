@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 132* {set:cellbgcolor:#CACCCE}|/req/core/132
+2+|The value of the action attribute of the transaction response shall be to "Insert", "Update" or "Delete" to indicate the type of action performed on the entry.
+|===

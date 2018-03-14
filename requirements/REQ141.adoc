@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 141* {set:cellbgcolor:#CACCCE}|/req/core/rest/141
+2+|To delete a feed entry, an HTTP DELETE request shall be sent to the entry's URI (see <<BaseFeedEntryURIs>>).
+|===

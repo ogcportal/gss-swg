@@ -1,0 +1,233 @@
+[[transaction]]
+
+== Transaction interface
+
+=== Introduction
+
+The feed management API is used to insert, update and delete entries from the
+various feeds managed by a GSS (see <<EventChannels,Event Channels>>).
+
+[[Transaction,Transaction operation]]
+=== Request encoding
+
+[[TransactionEncoding,Transaction XML encoding]]
+==== XML encoding
+
+The following XML Schema fragment defines the XML encoding for the Transaction
+operation that may be used to insert, update and/or delete entries from a feed.
+
+[source,xml]
+   <xsd:element name="Transaction" type="gss:TransactionType"/>
+   <xsd:complexType name="TransactionType">
+      <xsd:complexContent>
+         <xsd:extension base="gss:BaseRequestType">
+            <xsd:sequence>
+               <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+                  <xsd:element ref="gss:AbstractTransactionAction"/>
+               </xsd:sequence>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:element name="AbstractTransactionAction"
+                type="gss:AbstractTransactionActionType" abstract="true"/>
+   <xsd:complexType name="AbstractTransactionActionType" abstract="true">
+      <xsd:attribute name="handle" type="xsd:string"/>
+   </xsd:complexType>
+
+   <xsd:element name="Insert" type="gss:InsertType"
+                substitutionGroup="gss:AbstractTransactionAction"/>
+   <xsd:complexType name="InsertType">
+      <xsd:complexContent>
+         <xsd:extension base="gss:AbstractTransactionActionType">
+            <xsd:sequence>
+               <xsd:any namespace="##other" processContents="lax"/>
+            </xsd:sequence>
+            <xsd:attribute name="feed" type="xsd:string" use="required"/>
+            <xsd:attribute name="inputFormat" type="xsd:string"
+                           default="application/atom+xml; type=entry"/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:element name="Update" type="gss:UpdateType"
+                substitutionGroup="gss:AbstractTransactionAction"/>
+   <xsd:complexType name="UpdateType">
+      <xsd:complexContent>
+         <xsd:extension base="gss:AbstractTransactionActionType">
+            <xsd:sequence>
+               <xsd:any namespace="##other" processContents="lax"/>
+            </xsd:sequence>
+            <xsd:attribute name="feed" type="xsd:string" use="required"/>
+            <xsd:attribute name="entryIdentifier"
+                           type="xsd:anyURI" use="required"/>
+            <xsd:attribute name="inputFormat" type="xsd:string"
+                           default="application/atom+xml; type=entry"/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:element name="Delete" type="gss:DeleteType"
+                substitutionGroup="gss:AbstractTransactionAction"/>
+   <xsd:complexType name="DeleteType">
+      <xsd:complexContent>
+         <xsd:extension base="gss:AbstractTransactionActionType">
+            <xsd:attribute name="feed" type="xsd:string" use="required"/>
+            <xsd:attribute name="entryIdentifier"
+                           type="xsd:anyURI" use="required"/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+include::requirements/REQ124.adoc[]
+
+include::requirements/REQ125.adoc[]
+
+include::requirements/REQ126.adoc[]
+
+include::requirements/REQ127.adoc[]
+
+include::requirements/REQ128.adoc[]
+
+Other input formats may be supported by a server but their meaning is not
+defined in this standard.
+
+include::requirements/REQ129.adoc[]
+
+==== KVP encoding
+
+No KVP encoding is defined for the feed management operations.
+
+==== Response encoding
+
+The following XML-schema fragment defines the XML-encoding of the response to
+a Transaction request:
+
+[source,xml]
+   <xsd:element name="TransactionResponse">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="EntryIdentifier"
+                         minOccurs="0" maxOccurs="unbounded">
+               <xsd:complexType>
+                  <xsd:simpleContent>
+                     <xsd:extension base="xsd:anyURI">
+                        <xsd:attribute name="action"
+                                       type="gss:ActionType" use="required"/>
+                     </xsd:extension>
+                  </xsd:simpleContent>
+               </xsd:complexType>
+            </xsd:element>
+         </xsd:sequence>
+         <xsd:attributeGroup ref="gss:BaseAttributes"/>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:simpleType name="ActionType">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="Insert"/>
+         <xsd:enumeration value="Update"/>
+         <xsd:enumeration value="Delete"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+
+include::requirements/REQ130.adoc[]
+
+include::requirements/REQ131.adoc[]
+
+include::requirements/REQ132.adoc[]
+
+include::requirements/REQ134.adoc[]
+
+==== Bindings
+
+[[TransactionPoxBinding,Transaction POX-POST Binding]]
+===== OGC POX with POST binding
+
+include::requirements/REQ135.adoc[]
+
+include::requirements/REQ136.adoc[]
+
+===== OGC KVP with GET binding
+
+No KPV binding is defined.
+
+[[TransactionSoapBinding,Transaction SOAP Binding]]
+===== SOAP binding
+
+include::requirements/REQ133.adoc[]
+
+include::requirements/REQ176.adoc[]
+
+[[TransactionRestBinding,Transaction REST Binding]]
+===== REST binding
+
+====== Introduction 
+
+include::requirements/REQ137.adoc[]
+
+The AtomPub protocol (see https://tools.ietf.org/html/rfc5023[The Atom Publishing Protocol)
+uses the following HTTP methods to perform transactions: POST to create new
+entries (i.e. Insert), PUT to modify existing entries (i.e. Update) and DELETE
+to remove an entry (i.e. Delete).  Unlike the POX binding (see <<TransactionPoxBinding>>)
+the REST binding can only operate on one entry at a time.
+
+====== Creating a new feed entry (POST)
+
+include::requirements/REQ138.adoc[]
+
+Other resource representations are allowed but are not defined in this
+standard.
+
+See AtomPub sub-clause 9.2 for further details about creating feed entries.
+
+See <<EncodingRules,here> for encoding rules for entries of each of the GSS base
+feeds.
+
+====== Modifying an existing feed entry (PUT)
+
+include::requirements/REQ140.adoc[]
+
+To avoid unintentional loss of data when editing feed entries, clients should
+retrieve the existing entry from the Feed to make their changes, and then put
+the entire entry back to the server.
+
+See AtomPub sub-clause 9.3 for further details about modifying feed entries.
+
+See <<EncodingRules,here> for encoding rules for entries of each of the GSS base
+feeds.
+
+====== Deleting a feed entry (DELETE)
+
+include::requirements/REQ141.adoc[]
+
+See AtomPub sub-clause 9.4 for further details about deleting feed entries.
+
+====== Response encoding
+
+The ATOM Publishing Protocol uses the response status codes defined in HTTP to
+indicate the success or failure of an operation. Consult the HTTP specification
+(see RFC2616) for detailed definitions of each status code and the AtomPub
+specification (see RFC 5023) for the content of each response.  This
+information is summarized here.
+
+include::requirements/REQ142.adoc[]
+
+include::requirements/REQ143.adoc[]
+
+The returned entry may not match the entry posted by the client.  A server may
+change the values of various elements in the entry, such as the atom:id,
+atom:link, atom:updated, and atom:author values, and may choose to remove or
+add other elements and attributes, or change element content and attribute
+values.
+
+include::requirements/REQ144.adoc[]
+
+include::requirements/REQ145.adoc[]
+
+include::requirements/REQ146.adoc[]
+
+include::requirements/REQ147.adoc[]
+
+The following table describes the actions the server should take when the
+specified method is applied to the "/" resource.

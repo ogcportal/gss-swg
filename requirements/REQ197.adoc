@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 197* {set:cellbgcolor:#CACCCE}|/req/core/197
+2+|In response to an RejectChange operation the server shall encode the entry identifier of the rejected change using the gss:EntryIdentifier element in the response.
+|===

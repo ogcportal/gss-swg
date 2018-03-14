@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 169* {set:cellbgcolor:#CACCCE}|/req/core/rest/169
+2+|Resolving a URL -- with the HTTP GET method -- formed by appending the GetEntries KVP parameters (see <<GetEntriesKVP>>) [with the exception of the SERVICE, VERSION and REQUEST parameters] to a GSS base feed's URI (see <<BaseFeedURIs>>) shall, by default, generate an ATOM feed containing the entries -- in the default order or the order specified using the SORTBY parameter -- that satisfy the specified query predicates or an exception report (see <<Exception>>) if the operation fails.
+|===

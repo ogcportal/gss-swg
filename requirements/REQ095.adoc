@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 95* {set:cellbgcolor:#CACCCE}|/req/core/95
+2+|Embedded within the capabilities document of a GSS shall be an AtomPub Service Document and an OpenSearch Description document.
+|===

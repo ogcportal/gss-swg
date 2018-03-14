@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 235* {set:cellbgcolor:#CACCCE}|/req/core/235
+2+|The owner attribute on the gss:Publication element shall encode the name of the user who created the publication.
+|===

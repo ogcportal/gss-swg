@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 165* {set:cellbgcolor:#CACCCE}|/req/core/165
+2+|The entries in the response feed generated in response to a GetEntries operation shall, by default, be sorted in descending temporal order so that the most recent entry is the first entry in the response.
+|===

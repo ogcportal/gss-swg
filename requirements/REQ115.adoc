@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 115 {set:cellbgcolor:#CACCCE}|/req/core/115
+2+|A Geo-Synchronization service shall advertise the terms "Accept" and "Reject" as categories for the resolution feed and the terms "Insert", "Update" and "Delete" as categories for the replication feed. 
+|===

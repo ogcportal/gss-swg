@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 121 {set:cellbgcolor:#CACCCE}|/req/core/rest/120
+2+|The root URL of the server (i.e. /) shall resolve to the service metadata document (i.e. capabilities document).
+|===

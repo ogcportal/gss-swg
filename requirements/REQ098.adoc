@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 98* {set:cellbgcolor:#CACCCE}|/req/core/98
+2+|All Geo-Synchronization services shall implement the GetCapabilities operation. 
+|===

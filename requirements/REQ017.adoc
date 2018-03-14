@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 17* {set:cellbgcolor:#CACCCE}|/req/core/17
+2+|A GSS shall offer the ability to query event channels using spatial and non-spatial predicates to identify a subset of events that satisfy the specified constraints.
+|===

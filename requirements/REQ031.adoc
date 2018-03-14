@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 31* {set:cellbgcolor:#CACCCE}|/req/31
+2+|Servers that implement the SOAP binding shall implement the HTTP POST method (see IETF RFC 2616).
+|===

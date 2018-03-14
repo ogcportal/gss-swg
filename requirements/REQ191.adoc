@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 191* {set:cellbgcolor:#CACCCE}|/req/core/soap/191
+2+|Sending a SOAP message, whose body contains an XML-encoded AcceptChange message (see <<AcceptChangeXML>>), to the Post URL listed in the server's capabilities document for the AcceptChange operation, using the HTTP POST method, shall generate a SOAP message whose body contains a gss:AcceptChangeResponse message or a SOAP fault message containing an exception report (see <<Exception>>) if the operation fails.
+|===

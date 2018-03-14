@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 9* {set:cellbgcolor:#CACCCE}|/req/core/9
+2+|Only users with the reviewer role shall be able to create entries in the Resolution event channel.
+|===

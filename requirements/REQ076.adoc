@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 76* {set:cellbgcolor:#CACCCE}|/req/core/76
+2+|In the replication feed, a single proposed change transaction containing multiple actions shall be logged as multiple transactions each containing one action.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 161* {set:cellbgcolor:#CACCCE}|/req/core/161
+2+|The optional maxEntries attribute on the gss:GetEntries element shall be used to specify how many entries shall appear in the response.
+|===

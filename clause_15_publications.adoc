@@ -1,0 +1,369 @@
+[[publications]]
+
+== Publications 
+
+=== Introduction
+
+The publication interface defines operations to create, and remove publications
+as well an operation so that clients may discover the list of available
+publications.  
+
+[[CreatePublication,CreatePublication operation]]
+=== CreatePublication operation
+
+==== Introduction
+
+The CreatePublication operation allows a client to create a filtered view of a
+base feed by optionally specifying spatial and/or non-spatial constraints to be
+applied to an Atom+GeoRSS feed. The new publication includes a description
+containing a human-readable title and may also include a human-readable
+narrative describing the publication.
+
+==== Request encoding 
+
+[[CreatePublicationXML,CreatePublication XML encoding]]
+===== XML encoding
+
+The following XML schema fragment defines the XML encoding for the
+CreatePublication operation:
+
+[source,xml]
+   <xsd:element name="CreatePublication">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="pubsub:CreatePublicationType">
+               <xsd:attributeGroup ref="gss:BaseAttributes"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ211.adoc[]
+
+include::requirements/REQ212.adoc[]
+
+Servers may support other filter expression languages but their meaning is not
+defined in this standard.
+
+===== KVP encoding
+
+No KVP encoding is defined for the CreatePublication operation.
+
+[[CreatePublicationResponse,CreatePublication response encoding>>
+===== Response encoding
+
+See clause 14.2.2 of OGC Publish/Subscribe Interface Standard 1.0 - Core
+(OGC 13-131r1) for the response encoding.
+
+The response may include zero or more gss:ResponseComment elements within the
+pubsub:Extension element to provide additional comments, perhaps in multiple
+languages, about the publication.
+
+===== Bindings
+
+[[CreatePublicationPoxBinding,CreatePublication POX-POST Binding]]
+====== OGC POX with POST binding
+
+include::requirements/REQ216.adoc[]
+
+include::requirements/REQ217.adoc[]
+
+[[CreatePublicationKvpBinding,CreatePublication KVP-GET Binding]]
+====== OGC KVP with GET binding
+
+No OGC KVP with GET binding is defined for the CreatePublication operation.
+
+[[CreatePublicationSoapBinding,CreatePublication SOAP Binding]]
+====== SOAP binding
+
+include::requirements/REQ220.adoc[]
+
+include::requirements/REQ215.adoc[]
+
+[[CreatePublicationRestBinding,CreatePublication REST Binding]]
+====== REST binding
+
+include::requirements/REQ219.adoc[]
+
+include::requirements/REQ213.adoc[]
+
+include::requirements/REQ214.adoc[]
+
+include::requirements/REQ194.adoc[]
+
+Example:
+
+The following example creates a publication that monitors the changefeed for
+entries that lie within the region of Gatineau, Quebec.
+
+[source]
+   CLIENT                                                           SERVER
+     |                                                                 |
+     | POST /publications  HTTP/1.1                                    |
+     | Host: www.acme.com                                              |
+     | User-Agent: geosyncclient/1.0                                   |
+     | Authorization: Basic ZGFmZnk6c2VjZXJldA==                       |
+     | Content-Type: text/xml                                          |
+     | Content-Length: nnn                                             |
+     | Slug: fid435890453                                              |
+     |                                                                 |
+     | <?xml version="1.0" encoding="UTF-8"?>                          |
+     | <gss:Publication                                                |
+     |    xmlns:gss="http://www.opengis.net/gss/1.0"                   |
+     |    xmlns:fes="http://www.opengis.net/ogc/2.0"                   |
+     |    xmlns:ows="http://www.opengis.net/ows/1.1"                   |
+     |    xmlns:pubsub="http://www.opengis.net/pubsub/1.0"             |
+     |    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"        |
+     |    xsi:schemaLocation="http://www.opengis.net/gss/1.0 ../gss.xsd">
+     |    <ows:Title>Gatineau Changes</ows:Title>                      |
+     |    <ows:Abstract>This publication lists all the changes made in the Gatineau region in Quebec, Canada</ows:Abstract>
+     |    <pubsub:Identifier></pubsub:Identifier>                      |
+     |    <pubsub:ContentType>application/atom+xml</pubsub:ContentType>|
+     |    <pubsub:BasePublicationIdentifier>http://www.acme.com/gss/changefeed</pubsub:BasePublicationIdentifier>
+     |    <pubsub:Filter>                                              |
+     |       <fes:Filter>                                              |
+     |          <fes:Intersects>                                       |
+     |             <fes:PopertyName>entry/georss:where</fes:PropertyName>
+     |             <gml:Polygon> … <gml:Polygon>                       |
+     |          </fes:Intersects>                                      |
+     |       </fes:Filter>                                             |
+     |    </pubsub:Filter>                                             |
+     |    <pubsub:FilterLanguageId>http://www.opengis.net/fes/2.0</pubsub:FilterLanguageId>
+     | </gss:Publication>                                              |
+     |---------------------------------------------------------------->|
+     |                                                                 |
+     | HTTP/1.1 201 Created                                            |
+     | Location: /publications/urn:uuid:7e101eec-5b75-4b1c-b2d2-24901726e90b
+     | Content-Type: text/xml                                          |
+     |                                                                 |
+     | <gss:CreatePublicationResponse                                  |
+     |    service="GSS"                                                |
+     |    version="1.0.0"                                              |
+     |    handle="Example01"                                           |
+     |    xmlns:gss="http://www.opengis.net/gss/1.0"                   |
+     |    xmlns:fes="http://www.opengis.net/ogc/2.0"                   |
+     |    xmlns:ows="http://www.opengis.net/ows/1.1"                   |
+     |    xmlns:pubsub="http://www.opengis.net/pubsub/1.0"             |
+     |    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"        |
+     |    xsi:schemaLocation="http://www.opengis.net/gss/1.0 ../gss.xsd">
+     |    <gss:Publication                                             |
+     |       <ows:Title>Gatineau Changes</ows:Title>                   |
+     |       <ows:Abstract>This publication lists all the changes made in the Gatineau region in Quebec, Canada</ows:Abstract>
+     |       <pubsub:Identifier>http://www.acme.com/publications/urn:uuid:7e101eec-5b75-4b1c-b2d2-24901726e90b</pubsub:Identifier>
+     |       <pubsub:ContentType>application/atom+xml</pubsub:ContentType>
+     |       <pubsub:BasePublicationIdentifier>http://www.acme.com/gss/changefeed</pubsub:BasePublicationIdentifier>
+     |       <pubsub:Filter>                                           |
+     |          <fes:Filter>                                           |
+     |             <fes:Intersects>                                    |
+     |                <fes:PopertyName>entry/georss:where</fes:PropertyName>
+     |                <gml:Polygon> … <gml:Polygon>                    |
+     |             </fes:Intersects>                                   |
+     |          </fes:Filter>                                          |
+     |       </pubsub:Filter>                                          |
+     |       <pubsub:FilterLanguageId>http://www.opengis.net/fes/2.0</pubsub:FilterLanguageId>
+     |    </gss:Publication>                                           |
+     |    <pubsub:Extension>                                           |
+     |       <gss:ResponseComment xml:lang="en">...</gss:ResponseComment>
+     |       <gss:ResponseComment xml:lang="fr">...</gss:ResponseComment>
+     |    </pubsub:Extension>                                          |
+     | </gss:CreatePublicationResponse>                                |
+     |<----------------------------------------------------------------|
+
+[[RemovePublication,RemovePublication operation]]
+=== RemovePublication operation
+
+==== Introduction
+
+The RemovePublication operation allows a client to delete a publication
+previously created using the CreatePublication operation. The list of
+available publications can be discovered using the ListPublications operation.
+
+==== Request encoding
+
+[[RemovePublicationXML,RemovePublication XML encoding]]
+===== XML encoding
+
+The following XML-Schema fragment, copied from the OGC PubSub Standard, defines
+the XML encoding for the RemovePublication operation.
+
+[source,xml]
+   <xsd:element name="RemovePublication">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="pubsub:RemovePublicationType">
+               <xsd:attributeGroup ref="gss:BaseAttributes"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ221.adoc[]
+
+===== KVP encoding
+
+No KVP encoding is defined for this operation.
+
+[[RemovePublicationResponse,RemovePublication response encoding]]
+===== Response encoding
+
+See clause 14.3.2 of OGC Publish/Subscribe Interface Standard 1.0 - Core
+(OGC 13-131r1) for the response encoding.
+
+include::requirements/REQ224.adoc[]
+
+===== Bindings
+
+[[RemovePublicationPoxBinding,RemovePublication POX-POST Binding]]
+====== OGC POX with POST binding
+
+include::requirements/REQ225.adoc[]
+
+include::requirements/REQ222.adoc[]
+
+[[RemovePublicationKvpBinding,RemovePublication KVP-GET Binding]]
+====== KVP with GET binding
+
+No KVP with GET binding is defined for this operation.
+
+[[RemovePublicationSoapBinding,RemovePublication SOAP Binding]]
+===== SOAP binding
+
+include::requirements/REQ229.adoc[]
+
+include::requirements/REQ223.adoc[]
+
+[[RemovePublicationRestBinding,RemovePublication REST Binding]]
+====== REST binding
+
+include::requirements/REQ228.adoc[]
+
+include::requirements/REQ226.adoc[]
+
+include::requirements/REQ227.adoc[]
+
+include::requirements/REQ182.adoc[]
+
+The ListPublications operation (see <<ListPublication,here>>) may be used to
+determine the list of publications and their URI.
+
+Example: The following example removes a publication.
+
+[source]
+   CLIENT                                                     SERVER
+     |                                                           |
+     |   DELETE /publications/urn:uuid: 177b04aa-80bb-45fd-b54f-454a31bc8913 HTTP/1.1
+     |   Host: www.acme.com                                      |
+     |   Authorization: Basic ZGFmZnk6c2VjZXJldA==               |
+     |---------------------------------------------------------->|
+     |                                                           |
+     |   HTTP/1.1 200 OK                                         |
+     |   Content-Type: text/xml                                  |
+     |                                                           |
+     |   <pubsub:RemovePublicationResponse> ...                  |
+     |<----------------------------------------------------------|
+
+===== Termination notification
+
+As described in the <<AbstractPublications,abstract model>>, clients may
+subscribe to publications and be notified of any posted entries.  
+
+include::requirements/REQ230.adoc[]
+
+Thus, subscribers should be prepared to deal with such an eventuality.
+
+[[ListPublictions,ListPublications operation]]
+=== ListPublications operation
+
+==== Introduction
+
+The ListPublications operation allows a client to discover the available
+publications to which the client may subscribe using the Subscribe operation.
+
+==== Request encoding
+
+[[ListPublicationsXML,ListPublications XML encoding]]
+===== XML encoding
+
+The following XML schema fragment defines the XML encoding for the
+ListPublications operation:
+
+[source,xml]
+   <xsd:element name="ListPublications">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="gss:BaseRequestType">
+               <xsd:element ref="pubsub:PublicationIdentifier"
+                            minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ231.adoc[]
+
+include::requirements/REQ232.adoc[]
+
+[[ListPublicationsKVP,ListPublications KVP encoding]]
+=====  KVP encoding
+
+The following table defines the KVP-encoding for the ListPublication operation.
+
+[#ListPublicationsKVPEncoding,reftext='{ListPublications KVP request encoding} {counter:table-num}']
+.ListPublications KVP request encoding
+[width="90%",cols="30%,10%,10%,50%"]
+|===
+|Parameter Name |O/M |Type |Description
+|REQUEST |M |string |Name of operation |Fixed value of "ListPublications"
+|PUBLICATIONIDS |M |URI |Comma separated list of publication ids to list.
+|===
+
+[[ListPublicationResponse,ListPublications response encoding]]
+===== Response
+
+The following XML-Schema fragment defines the response to a ListPublications
+operation:
+
+[source,xml]
+   <xsd:element name="ListPublicationsResponse">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element ref="gss:Publication" 
+                         minOccurs="0" maxOccurs="unbounded"/>
+         </xsd:sequence>
+         <xsd:attributeGroup ref="gss:BaseAttributes"/>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ233.adoc[]
+
+include::requirements/REQ235.adoc[]
+
+===== Bindings
+
+[[ListPublicationsPoxBinding,ListPublications POX-POST Binding]]
+====== OGC POX with POST binding
+
+include::requirements/REQ237.adoc[]
+
+include::requirements/REQ234.adoc[]
+
+[[ListPublicationsKvpBinding,ListPublications KVP-GET Binding]]
+====== OGC KVP with GET binding
+
+include::requirements/REQ239.adoc[]
+
+include::requirements/REQ238.adoc[]
+
+[[ListPublicationsSoapBinding,ListPublications SOAP Binding]]
+====== SOAP binding
+
+include::requirements/REQ241.adoc[]
+
+include::requirements/REQ242.adoc[]
+
+[[ListPublicationsRestBinding,ListPublications REST Binding]]
+====== REST binding
+
+include::requirements/REQ240.adoc[]
+
+include::requirements/REQ243.adoc[]

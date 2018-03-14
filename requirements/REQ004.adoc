@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 4* {set:cellbgcolor:#CACCCE}|/req/core/4
+2+|This candidate standard assumes that users shall also be assigned roles that limit the type and scope of GSS operations that can be executed.  
+|===

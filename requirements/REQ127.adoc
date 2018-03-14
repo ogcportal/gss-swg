@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 127* {set:cellbgcolor:#CACCCE}|/req/core/127
+2+|The inputFormat attribute on the Insert action shall be used to assert the input encoding of the feed entry.
+|===

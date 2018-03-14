@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 15* {set:cellbgcolor:#CACCCE}|/req/core/15
+2+|A Geo-Synchronization service shall, on demand, provide service metadata to a client application.
+|===

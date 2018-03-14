@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 300* {set:cellbgcolor:#CACCCE}|/req/sub/300
+2+|In the event that an exception is encountered processing an Unsubscribe operation, the service shall respond with an exception report (see <<Exception>>).
+|===

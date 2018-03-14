@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 219* {set:cellbgcolor:#CACCCE}|/req/pub/rest/219
+2+|Sending an HTTP POST request, with the request body containing a gss:Publication element (see <<PublicationEncoding>>), to a server's /publications endpoint (see <<PublicationURIs>>) shall create a new publication.
+|===

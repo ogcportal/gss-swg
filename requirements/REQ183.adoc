@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 183* {set:cellbgcolor:#CACCCE}|/req/core/183
+2+|In the event that an exception is encountered processing the AcceptChange operation, the service shall respond with an exception report (see <<Exception>>).
+|===

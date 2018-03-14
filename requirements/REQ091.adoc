@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 91* {set:cellbgcolor:#CACCCE}|/req/pub/91
+2+|Servers shall advertise all supported predicate languages in their service metadata document (i.e. capabilities document).
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 175* {set:cellbgcolor:#CACCCE}|/req/core/rest/175
+2+|The HTTP status code for the response to a REST GetEntries operation shall be set to 200.
+|===

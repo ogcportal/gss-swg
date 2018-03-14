@@ -1,0 +1,246 @@
+[[change]]
+
+== Change management
+
+=== Introduction
+
+The following set of operations allows changes to be reviewed and either
+accepted or rejected.
+
+[[AcceptChange,AcceptChange operation]]
+=== AcceptChange operation
+
+==== Introduction
+
+include::requirements/REQ171.adoc[]
+
+include::requirements/REQ172.adoc[]
+
+include::requirements/REQ173.adoc[]
+
+include::requirements/REQ174.adoc[]
+
+==== Request encoding
+
+[[AcceptChangeXML,AcceptChange XML encoding]]
+===== XML encoding
+
+The following XML Schema fragment defines the XML encoding for the
+AcceptChange request:
+
+[source,xml]
+   <xsd:element name="AcceptChange">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="gss:BaseRequestType">
+               <xsd:sequence>
+                  <xsd:element name="EntryIdentifier" type="xsd:anyURI"/>
+                   <xsd:element name="Comment"
+                                type="ows:LanguageStringType"
+                                minOccurs="0" maxOccurs="unbounded"/>
+                   <xsd:element name="Revision" minOccurs="0">
+                      <xsd:complexType>
+                         <xsd:sequence>
+                            <xsd:any namespace="##other"
+                                     processContents="lax"/>
+                         </xsd:sequence>
+                      </xsd:complexType>
+                   </xsd:element>
+               </xsd:sequence>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ177.adoc[]
+
+The optional gss:Comment element within the gss:AcceptChange element may be used
+to include an acceptance comment. 
+
+include::requirements/REQ179.adoc[]
+
+include::requirements/REQ180.adoc[]
+
+It is also recommended that a gss:Comment element be included in the
+AcceptChange operation containing a narrative explaining the modifications
+made by the reviewer or review process.  
+
+Multiple gss:Comments elements may be used to express the same comments in
+different languages.
+
+[[AcceptChangeKVP,AcceptChange KVP encoding]]
+===== KVP encoding
+
+The following tables defines the KVP-encoding for the AcceptChange operation
+
+[#AcceptChangeKVPEncoding,reftext='{AcceptChange KVP-encoding} {counter:table-num}']
+.AcceptChange KVP-encoding
+[width="90%",cols="20%,20%,60%"]
+|===
+|Parameter Name |Description |Mandatory?
+|REQUEST |Fixed value of *AcceptChange* |Y
+|ENTRYIDENTIFIER |The identifier of an entry in the proposed change feed. |Y
+|COMMENT |A human readable comment about the accepted change.  |N
+|===
+
+The KVP-encoding of the AcceptChange operation does not support revising
+proposed changes.
+
+Only single-language comments are supported by the KVP-encoding of the 
+AcceptChange operation.
+
+[[AcceptChangeResponse,AcceptChange response encoding]]
+===== Response
+
+The following XML-Schema fragment defines the response to an AcceptChange
+operation:
+
+[source,xml]
+   <xsd:element name="AcceptChangeResponse" type="gss:BaseResponseType"/>
+
+The type gss:BaseResponseType is defined <<BaseResponseType,here>>.
+
+include::requirements/REQ181.adoc[]
+
+The optional gss:Comment element may be used in the response to include a
+comment about the operation.
+
+include::requirements/REQ183.adoc[]
+
+===== Bindings
+
+[[AcceptChangePoxBinding,AcceptChange POX-POST Binding]]
+====== OGC POX with POST binding
+
+include::requirements/REQ184.adoc[]
+
+include::requirements/REQ185.adoc[]
+
+[[AcceptChangeKvpBinding,AcceptChange KVP-GET Binding]]
+====== OGC KVP with GET binding
+
+include::requirements/REQ186.adoc[]
+
+include::requirements/REQ188.adoc[]
+
+[[AcceptChangeSoapBinding,AcceptChange SOAP Binding]]
+====== SOAP binding
+
+include::requirements/REQ191.adoc[]
+
+include::requirements/REQ189.adoc[]
+
+[[AcceptChangeRestBinding,AcceptChange REST Binding]]
+====== REST binding
+
+include::requirements/REQ187.adoc[]
+
+include::requirements/REQ190.adoc[]
+
+[[RejectChange,RejectChange operation]]
+=== RejectChange operation
+
+==== Introduction
+
+include::requirements/REQ192.adoc[]
+
+include::requirements/REQ193.adoc[]
+
+==== Request encoding
+
+[[RejectChangeXML,RejectChange XML encoding]]
+===== XML encoding
+
+The following XML Schema fragment defines the XML encoding for the
+RejectChange request:
+
+[source,xml]
+   <xsd:element name="RejectChange">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="gss:BaseRequestType">
+               <xsd:sequence>
+                  <xsd:element name="EntryIdentifier" type="xsd:anyURI"/>
+                   <xsd:element name="Comment"
+                                type="ows:LanguageStringType"
+                                minOccurs="0" maxOccurs="unbounded"/>
+               </xsd:sequence>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ196.adoc[]
+
+It is recommended that a gss:Comment element be included in the
+RejectChange operation containing a narrative explaining why the change
+was rejected  by the reviewer or review process.  
+
+Multiple gss:Comments elements may be used to express the same comment in
+different languages.
+
+[[RejectChangeKVP,RejectChange KVP encoding]]
+===== KVP encoding
+
+The following tables defines the KVP-encoding for the RejectChange operation
+
+[#RejectChangeKVPEncoding,reftext='{RejectChange KVP-encoding} {counter:table-num}']
+.RejectChange KVP-encoding
+[width="90%",cols="20%,20%,60%"]
+|===
+|Parameter Name |Description |Mandatory?
+|REQUEST |Fixed value of *RejectChange* |Y
+|ENTRYIDENTIFIER |The identifier of an entry in the proposed change feed. |Y
+|COMMENT |A human readable comment about the rejected change. |N
+|===
+
+Only single-language comments are supported for the KVP-encoding of the reject
+change operation.
+
+[[RejectChangeResponse,RejectChange response]]
+===== Response
+
+The following XML-Schema fragment defines the response to a RejectChange
+operation:
+
+[source,xml]
+   <xsd:element name="RejectChangeResponse" type="gss:BaseResponseType"/>
+
+The type gss:BaseResponseType is defined <<BaseResponseType,here>>.
+
+include::requirements/REQ197.adoc[]
+
+The optional gss:Comment element may be used in the response to include a
+comment about the operation.
+
+include::requirements/REQ198.adoc[]
+
+===== Bindings
+
+[[RejectChangePoxBinding,RejectChange POX-POST Binding]]
+====== OGC POX with POST binding
+
+include::requirements/REQ199.adoc[]
+
+include::requirements/REQ200.adoc[]
+
+[[RejectChangeKvpBinding,RejectChange KVP-GET Binding]]
+====== OGC KVP with GET binding
+
+include::requirements/REQ201.adoc[]
+
+include::requirements/REQ205.adoc[]
+
+[[RejectChangeSoapBinding,RejectChange SOAP Binding]]
+====== SOAP binding
+
+include::requirements/REQ202.adoc[]
+
+include::requirements/REQ206.adoc[]
+
+[[RejectChangeRestBinding,RejectChange REST Binding]]
+====== REST binding
+
+include::requirements/REQ203.adoc[]
+
+include::requirements/REQ204.adoc[]

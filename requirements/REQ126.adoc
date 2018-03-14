@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 126* {set:cellbgcolor:#CACCCE}|/req/core/126
+2+|The entryIdentifier attribute on an Update or Delete action shall be used to identify the entry to be modified or deleted.
+|===

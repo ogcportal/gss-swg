@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 229* {set:cellbgcolor:#CACCCE}|/req/pub/soap/229
+2+|Sending a SOAP message, whose body contains an XML-encoded RemovePublication request (see <<RemovePublicationXML>>), to the Post URL listed in the server's capabilities document for the RemovePublication operation, using the HTTP POST method, shall generate a SOAP message whose body contains a pubsub:RemovePublicationResponse message (see <<RemovePublicationResponse>>) or a SOAP fault message containing an exception report (see <<Exception>>) if the operation fails.
+|===

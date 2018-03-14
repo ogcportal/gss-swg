@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 253* {set:cellbgcolor:#CACCCE}|/req/core/soap/253
+2+|The HTTP status code for the response to a SOAP-encoded ListSubscriptions operation shall be set to 200.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 13* {set:cellbgcolor:#CACCCE}|/req/core/13
+2+|When a user requests a list of publications from a GSS, they shall be able to see all available publications.
+|===

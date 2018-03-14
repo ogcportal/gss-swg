@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 192* {set:cellbgcolor:#CACCCE}|/req/core/192
+2+|The RejectChange operation shall signal that the specified proposed change has been reviewed and has been rejected.
+|===

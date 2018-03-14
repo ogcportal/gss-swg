@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 109 {set:cellbgcolor:#CACCCE}|/req/core/109
+2+|The Workspace shall contain Collections which reference the actual Geo-Synchronization feeds (i.e. change resolution and replication feeds). 
+|===

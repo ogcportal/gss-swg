@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 202* {set:cellbgcolor:#CACCCE}|/req/core/soap/202
+2+|Sending a SOAP message, whose body contains an XML-encoded RejectChange message (see <<RejectChangeXML>>), to the Post URL listed in the server's capabilities document for the RejectChange operation, using the HTTP POST method, shall generate a SOAP message whose body contains a gss:RejectChangeResponse message or a SOAP fault message containing an exception report (see <<Exception>>) if the operation fails.
+|===

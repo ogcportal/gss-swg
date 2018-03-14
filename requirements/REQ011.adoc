@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 11* {set:cellbgcolor:#CACCCE}|/req/core/11
+2+|Only the owner of an event entry shall be able to modify or delete that entry.
+|===

@@ -1,0 +1,6 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 318* {set:cellbgcolor:#CACCCE}|/req/core/318
+2+|Servers that implement the Synchronization conformance class shall advertise the "sync" protocol in the DeliveryCapabilities section of the server's
+<<GetCapabilitiesResponse,capabilities document>>.
+|===

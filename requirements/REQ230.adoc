@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 230* {set:cellbgcolor:#CACCCE}|/req/pub/230
+2+|In the event that a publication is removed that still has subscribers, a termination notification shall be sent to each subscriber.
+|===

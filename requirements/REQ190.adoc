@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 190* {set:cellbgcolor:#CACCCE}|/req/core/rest/190
+2+|Upon successfully processing a REST AcceptChange message the server shall respond by setting the HTTP status code to 200 and the body of the response shall contain a gss:AcceptChangeResponse message (see <<AcceptChangeResponse>>).
+|===

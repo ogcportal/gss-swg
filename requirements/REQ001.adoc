@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 1* {set:cellbgcolor:#CACCCE}|/req/core/1
+2+|Geo-Synchronization service shall implement three event channels: a Proposed Change event channel, a Resolution event channel and a Replication event channel.
+|===

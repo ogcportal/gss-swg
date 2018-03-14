@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 233* {set:cellbgcolor:#CACCCE}|/req/core/233
+2+|The response to a ListPublications operation shall contains zero or more gss:Publication elements each describing a publication that is available on the server.
+|===

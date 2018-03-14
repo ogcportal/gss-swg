@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 260* {set:cellbgcolor:#CACCCE}|/req/sub/260
+2+|The value of pubsub:SubscriptionIdentifier element shall identify a subscription to be paused.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 160* {set:cellbgcolor:#CACCCE}|/req/core/160
+2+|The optional startPosition attribute on the gss:GetEntries element shall be used to indicate the start index at which the server shall begin presenting results.
+|===

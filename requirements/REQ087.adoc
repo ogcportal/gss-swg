@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 87* {set:cellbgcolor:#CACCCE}|/req/pub/87
+2+|All compliant servers shall support the use of the fes:Filter element (see OGC 09-026r2) for specifying a publication filter.
+|===

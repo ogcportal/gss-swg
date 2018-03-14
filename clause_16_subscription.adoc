@@ -1,0 +1,643 @@
+[[subscription]]
+
+== Subscription interface
+
+=== Introduction
+
+This clause defines the operations and resource for a subscription interface.
+
+The subscription interface allows a client to register their interest
+in tracking changes to base feeds and/or publications that a GSS offers.
+
+The subscription interface allows a client to indicate what notification 
+actions should occur whenever a change of interest happens.
+
+The subscription interface allows a client to get a list of subscriptions, to
+pause a subscription, to resume a subscription and to cancel a subscription.
+
+[[Subscribe,Subscribe operation]]
+=== Subscribe operation
+
+==== Request encoding
+
+[[SubscribeXML,Subscribe XML encoding]]
+===== XML encoding
+
+The following XML fragment defines the XML encoding for a Subscribe operation:
+
+[source,xml]
+   <xsd:element name="Subscribe"
+                substitutionGroup="pubsub:Subscribe">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="pubsub:SubscribeType">
+               <xsd:attributeGroup ref="gss:BaseAttributes"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ244.adoc[]
+
+The mailto protocol is define in ITEF RFC 2369.
+
+include::requirements/REQ245.adoc[]
+
+include::requirements/REQ249.adoc[]
+
+All publications managed by a GSS are derived from the <<BaseFeeds,base feeds>>
+offered by the server and so already include a filtering element.
+
+The list of available publications for which subscriptions can be created can
+be obtained using the <<ListPublications,ListPublications>> operation.
+
+include::requirements/REQ248.adoc[]
+
+This standard does not describe the meaning of output formats other than the
+default format.
+
+[[SubscribeKVP,Subscribe KVP encoding]]
+===== KVP encoding
+
+The following table defines the KVP parameters for the Subscribe operation.
+
+[#SubscribeKVPEncoding,reftext='{Subscribe KVP request encoding} {counter:table-num}']
+.Subscribe KVP request encoding
+[width="90%",cols="30%,10%,10%, 50%"]
+|===
+|Parameter Name |O/M |Type |Description
+|REQUEST |M |string |Fixed value of "Subscribe"
+|PUBLICATIONIDENTIFIER |M |URI |A publication identifier
+|DELIVERYMETHOD |M |string |Notification method or protocol
+|TERMINATIONTIME |O |dateTime |Sets an expiry date for the subscriptions after which no further notifications shall be sent.
+|CONTENTTYPE |O |MimeType |The desired content type of the subscription
+|===
+
+Example: The following is an example of a minimal Subscribe request.
+
+....
+http://www.acme.com/gss.cgi?REQUEST=Subscribe&PUBLICATIONID=urn:uuid:18fed003-1ff0-480f-93f4-af7ca4b201e2&DELIVERYMETHOD=mailto:xxx@yyy
+....
+
+[[SubscribeResponse,Subscribe response encoding]]
+===== Response encoding
+
+See clause 8.3.3 of OGC Publish/Subscribe Interface Standard 1.0 - Core
+(OGC 13-131r1) for the response encoding.
+
+The response may include zero or more gss:ResponseComment elements within the
+pubsub:Extension element to provide additional comments, perhaps in multiple
+languages, about the subscription.
+
+===== Bindings
+
+[[SubscribePoxBinding,Subscribe POX-POST Binding]]
+====== OGC POX with POST binding
+
+include::requirements/REQ255.adoc[]
+
+include::requirements/REQ256.adoc[]
+
+[[SubscribeKvpBinding,Subscribe KVP-GET Binding]]
+====== OGC KVP with GET binding
+
+include::requirements/REQ257.adoc[]
+
+include::requirements/REQ250.adoc[]
+
+[[SubscribeSoapBinding,Subscribe SOAP Binding]]
+====== SOAP binding
+
+include::requirements/REQ259.adoc[]
+
+include::requirements/REQ251.adoc[]
+
+[[SubscribeRestBinding,Subscribe REST Binding]]
+====== REST binding
+
+include::requirements/REQ258.adoc[]
+
+include::requirements/REQ148.adoc[]
+
+include::requirements/REQ236.adoc[]
+
+include::requirements/REQ040.adoc[]
+
+Example:
+
+The following example creates a subscription on a publication that monitors the changefeed for entries that lie within the region of Gatineau, Quebec.
+
+....
+   CLIENT                                                           SERVER
+     |                                                                 |
+     | POST /subscription  HTTP/1.1                                    |
+     | Host: www.acme.com                                              |
+     | User-Agent: geosyncclient/1.0                                   |
+     | Authorization: Basic ZGFmZnk6c2VjZXJldA==                       |
+     | Content-Type: text/xml                                          |
+     | Content-Length: nnn                                             |
+     | Slug: fid435890453                                              |
+     |                                                                 |
+     | <?xml version="1.0" encoding="UTF-8"?>                          |
+     | <gss:Subscription                                               |
+     |    xmlns:gss="http://www.opengis.net/gss/1.0"                   |
+     |    xmlns:gml="http://www.opengis.net/gml/3.2"                   |
+     |    xmlns:pubsub="http://www.opengis.net/pubsub/1.0"             |
+     |    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"        |
+     |    xsi:schemaLocation="http://www.opengis.net/gss/1.0 ../gss.xsd">
+     |    <pubsub:SubscriptionIdentifier/>                             |
+     |    <pubsub:PublicationIdentifier>urn:uuid:98a92000-4e50-423d-be4c-d60df13e19b1</pubsub:PublicationIdentifier>
+     |    <pubsub:TerminationTime gml:id="ID1">                        |
+     |       <gml:timePosition>2019-01-01T00:00:00</gml:timePosition>  |
+     |    </pubsub:TerminationTime>                                    |
+     |    <pubsub:DeliveryMethod>mailto:coyote@acme.com</pubsub:DeliveryMethod>
+     |    <pubsub:ContentType>application/atom+xml</pubsub:ContentType>|
+     | </gss:Subscription>                                             |
+     |                                                                 |
+     |---------------------------------------------------------------->|
+     |                                                                 |
+     | HTTP/1.1 201 Created                                            |
+     | Location: /subscription/urn:uuid:7e101eec-5b75-4b1c-b2d2-24901726e90b
+     | Content-Type: text/xml                                          |
+     |                                                                 |
+     | <pubsub:SubscribeResponse                                       |
+     |    xmlns:gss="http://www.opengis.net/gss/1.0"                   |
+     |    xmlns:fes="http://www.opengis.net/ogc/2.0"                   |
+     |    xmlns:ows="http://www.opengis.net/ows/1.1"                   |
+     |    xmlns:pubsub="http://www.opengis.net/pubsub/1.0"             |
+     |    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"        |
+     |    xsi:schemaLocation="http://www.opengis.net/gss/1.0 ../gss.xsd">
+     |    <gss:Subscription                                            |
+     |       xmlns:gss="http://www.opengis.net/gss/1.0"                |
+     |       xmlns:gml="http://www.opengis.net/gml/3.2"                |
+     |       xmlns:pubsub="http://www.opengis.net/pubsub/1.0"          |
+     |       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"     |
+     |       xsi:schemaLocation="http://www.opengis.net/gss/1.0 ../gss.xsd">
+     |       <pubsub:SubscriptionIdentifier>urn:uuid:7e101eec-5b75-4b1c-b2d2-24901726e90b</SubscriptionIdentifier>
+     |       <pubsub:PublicationIdentifier>urn:uuid:98a92000-4e50-423d-be4c-d60df13e19b1</pubsub:PublicationIdentifier>
+     |       <pubsub:TerminationTime gml:id="ID1">                     |
+     |          <gml:timePosition>2019-01-01T00:00:00</gml:timePosition>
+     |       </pubsub:TerminationTime>                                 |
+     |       <pubsub:DeliveryLocation>mailto:coyote@acme.com</pubsub:DeliveryLocation>
+     |    <pubsub:ContentType>application/atom+xml</pubsub:ContentType>|
+     |    <pubsub:Extension>                                           |
+     |       <gss:ResponseComment xml:lang="en">...</gss:ResponseComment>
+     |       <gss:ResponseComment xml:lang="fr">...</gss:ResponseComment>
+     |    </pubsub:Extension>                                          |
+     | </gss:CreatePublicationResponse>                                |
+     |<----------------------------------------------------------------|
+....
+
+[[ListSubscriptions,ListSubscription operation]]
+=== ListSubscriptions
+
+==== Introduction
+
+The ListSubscriptions operation generates a list of subscriptions to which an
+authenticated user has subscribed.
+
+==== Request encoding
+
+[[ListSubscriptionXML,ListSubscriptions XML encoding]]
+===== XML encoding
+
+The following XML Schema fragment defines the XML encoding for the
+ListSubscriptions operation.
+
+[source,xml]
+   <xsd:element name="ListSubscriptions">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="gss:BaseRequestType">
+               <xsd:element ref="pubsub:SubscriptionIdentifier"
+                            minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ260.adoc[]
+
+include::requirements/REQ261.adoc[]
+  
+[[ListSubscriptionKVP,ListSubscriptions KVP encoding]]
+===== KVP encoding
+
+The following table defines the KVP parameters for the ListSubscriptions
+operation.
+
+[#ListSubscriptionsKVPEncoding,reftext='{ListSubscriptions KVP request encoding} {counter:table-num}']
+.ListSubscriptions KVP request encoding
+[width="90%",cols="30%,10%,10%, 50%"]
+|===
+|Parameter Name |O/M |Type |Description
+|REQUEST |M |string |Fixed value of "ListSubscriptions"
+|SUBSCRIPTIONID |O |URI |Comma-separated list of subscription identifiers
+|===
+
+[[ListSubscriptionsResponse,ListSubscriptions response encoding]]
+===== Response encoding
+
+The following XML-Schema fragment defines the response to a ListSubscriptions
+operation:
+
+[source,xml]
+   <xsd:element name="ListSubscriptionsResponse">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element ref="gss:Subscription"
+                         minOccurs="0" maxOccurs="unbounded">
+         </xsd:sequence>
+         <xsd:attributeGroup ref="gss:BaseAttributes"/>
+         <xsd:attribute name="owner"
+                        type="xsd:string" use="required"/>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ262.adoc[]
+
+include::requirements/REQ263.adoc[]
+
+include::requirements/REQ264.adoc[]
+
+===== Bindings
+
+[[ListSubscriptionsPoxBinding,ListSubscriptions POX-POST Binding]]
+====== OGC POX with POST binding
+
+include::requirements/REQ265.adoc[]
+
+include::requirements/REQ266.adoc[]
+
+[[ListSubscriptionsKvpBinding,ListSubscriptions KVP-GET Binding]]
+====== OGC KVP with GET binding
+
+include::requirements/REQ267.adoc[]
+
+include::requirements/REQ252.adoc[]
+
+[[ListSubscriptionsSoapBinding,ListSubscriptions SOAP Binding]]
+====== SOAP binding
+
+include::requirements/REQ269.adoc[]
+
+include::requirements/REQ253.adoc[]
+
+[[ListSubscriptionsRestBinding,ListSubscriptions REST Binding]]
+====== REST binding
+
+include::requirements/REQ268.adoc[]
+
+include::requirements/REQ272.adoc[]
+
+[[Pause,Pause operation]]
+=== Pause operation
+
+==== Introduction
+
+The Pause operation temporarily suspends notification delivery of
+the specified subscription. 
+
+The current list of user subscriptions can be discovered using the
+<<ListSubscriptions,ListSubscriptions>> operation.
+
+==== Request encoding
+
+[[PauseXML,Pause XML encoding]]
+===== XML encoding
+
+The following XML Schema fragment defines the XML encoding for the Pause
+command.
+
+[source,xml]
+   <xsd:element name="Pause"
+                substitutionGroup="pubsub:Pause">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="pubsub:PauseType">
+               <xsd:attributeGroup ref="gss:BaseAttributes"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ270.adoc[]
+
+include::requirements/REQ271.adoc[]
+
+[[PauseKVP,Pause KVP encoding]]
+===== KVP encoding
+
+The following table defines the KVP-encoding for the Pause operation.
+
+[#PauseKVPEncoding,reftext='{Pause KVP request encoding} {counter:table-num}']
+.Pause KVP request encoding
+[width="90%",cols="30%,10%,10%, 50%"]
+|===
+|Parameter Name |O/M |Type |Description
+|REQUEST |M |string |Fixed value of "Pause"
+|SUBSCRIPTIONIDENTIFIER |M |URI |Comma separated list of subscription identifiers
+|===
+
+[[PauseResponseEncoding,Pause response encoding]]
+===== Response encoding
+
+See http://docs.opengeospatial.org/is/13-131r1/13-131r1.html#52[OGC Publish/Subscribe Interface Standard 1.0 - Core].
+
+The response may include zero or more gss:ResponseComment elements within the
+pubsub:Extension element to provide additional comments, perhaps in multiple
+languages, about the publication.
+
+include::requirements/REQ277.adoc[]
+
+===== Bindings
+
+[[PausePoxBinding,Pause POX-POST Binding]]
+====== OGC POX with POST binding
+
+include::requirements/REQ278.adoc[]
+
+include::requirements/REQ279.adoc[]
+
+[[PauseKvpBinding,Pause KVP-GET Binding]]
+====== OGC KVP with GET binding
+
+include::requirements/REQ280.adoc[]
+
+include::requirements/REQ273.adoc[]
+
+[[PauseSoapBinding,Pause SOAP Binding]]
+====== SOAP binding
+
+include::requirements/REQ282.adoc[]
+
+include::requirements/REQ274.adoc[]
+
+[[PauseRestBinding,Pause REST Binding]]
+====== REST binding
+
+include::requirements/REQ281.adoc[]
+
+include::requirements/REQ139.adoc[]
+
+[[Renew,Renew operation]]
+=== Renew operations
+
+==== Introduction
+
+The Renew operation resumes notifications for a previously paused
+subscription.
+
+==== Request encoding
+
+[[RenewXML,Renew XML encoding]]
+===== XML encoding
+
+The following XML Schema fragment defines the XML encoding for the 
+Renew command.
+
+[source,xml]
+   <xsd:element name="Renew"
+                substitutionGroup="pubsub:Renew">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="pubsub:RenewType">
+               <xsd:attributeGroup ref="gss:BaseAttributes"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ310.adoc[]
+
+Resuming an already active subscription shall have no effect.
+
+[[RenewKVP,Renew KVP encoding]]
+===== KVP encoding
+
+The following table defined the KVP encoding for the Renew operation.
+
+[#RenewKVPEncoding,reftext='{Renew KVP request encoding} {counter:table-num}']
+.Renew KVP request encoding
+[width="90%",cols="30%,10%,10%, 50%"]
+|===
+|Parameter Name |O/M |Type |Description
+|REQUEST |M |string |Fixed value of "Renew"
+|SUBSCRIPTIONIDENTIFIER |M |URI |Comma separated list of subscription identifiers
+|===
+
+[[RenewResponse,Renew response encoding]]
+===== Response encoding
+
+See http://docs.opengeospatial.org/is/13-131r1/13-131r1.html#38[OGC Publish/Subscribe Interface Standard 1.0 - Core].
+
+The response may include zero or more gss:ResponseComment elements within the
+pubsub:Extension element to provide additional comments, perhaps in multiple
+languages, about the publication.
+
+include::requirements/REQ311.adoc[]
+
+===== Bindings
+
+[[RenewPoxBinding,Renew POX-POST Binding]]
+====== OGC POX with POST binding
+
+include::requirements/REQ312.adoc[]
+
+include::requirements/REQ313.adoc[]
+
+[[RenewKvpBinding,Renew KVP-GET Binding]]
+====== OGC KVP with GET binding
+
+include::requirements/REQ314.adoc[]
+
+include::requirements/REQ308.adoc[]
+
+[[RenewSoapBinding,Renew SOAP Binding]]
+====== SOAP binding
+
+include::requirements/REQ315.adoc[]
+
+include::requirements/REQ309.adoc[]
+
+[[RenewRestBinding,Renew REST Binding]]
+====== REST binding
+
+include::requirements/REQ316.adoc[]
+
+include::requirements/REQ317.adoc[]
+
+[[Resume,Resume operation]]
+=== Resume operation
+
+==== Introduction
+
+The Resume operation resumes notifications for a previously paused
+subscription.
+
+==== Request encoding
+
+===== XML encoding
+
+The following XML Schema fragment defines the XML encoding for the
+Resume command.
+
+[source,xml]
+   <xsd:element name="Resume"
+                substitutionGroup="pubsub:Resume">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="pubsub:ResumeType">
+               <xsd:attributeGroup ref="gss:BaseAttributes"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ283.adoc[]
+
+Resuming an already active subscription shall have no effect.
+
+[[ResumeKVP]]
+===== KVP encoding
+
+The following table defined the KVP encoding for the Resume operation.
+
+[#ResumeKVPEncoding,reftext='{Resume KVP request encoding} {counter:table-num}']
+.Resume KVP request encoding
+[width="90%",cols="30%,10%,10%, 50%"]
+|===
+|Parameter Name |O/M |Type |Description
+|REQUEST |M |string |Fixed value of "Resume"
+|SUBSCRIPTIONIDENTIFIER |M |URI |Comma separated list of subscription identifiers
+|===
+
+[[ResumeResponse,Resume response encoding]]
+===== Response encoding
+
+See http://docs.opengeospatial.org/is/13-131r1/13-131r1.html#56[OGC Publish/Subscribe Interface Standard 1.0 - Core].
+
+The response may include zero or more gss:ResponseComment elements within the
+pubsub:Extension element to provide additional comments, perhaps in multiple
+languages, about the publication.
+
+include::requirements/REQ290.adoc[]
+
+===== Bindings
+
+[[ResumePoxBinding,Resume POX-POST Binding]]
+====== OGC POX with POST binding
+
+include::requirements/REQ291.adoc[]
+
+include::requirements/REQ292.adoc[]
+
+[[ResumeKvpBinding,Resume KVP-GET Binding]]
+====== OGC KVP with GET binding
+
+include::requirements/REQ090.adoc[]
+
+include::requirements/REQ293.adoc[]
+
+[[ResumeSoapBinding,Resume SOAP Binding]]
+====== SOAP binding
+
+include::requirements/REQ092.adoc[]
+
+include::requirements/REQ294.adoc[]
+
+[[ResumeRestBinding,Resume REST Binding]]
+====== REST binding
+
+include::requirements/REQ100.adoc[]
+
+include::requirements/REQ114.adoc[]
+
+[[Unsubscribe,Unsubscribe operation]]
+=== Unsubscribe operation
+
+==== Introduction
+
+The Unsubscribe operation permanently suspends notification and removes a 
+subscription from a GSS server.
+
+==== Request encoding
+
+[[UnsubscribeXML,Unsubscribe XML encoding]]
+===== XML encoding
+
+The following XML Schema fragment defines the XML encoding for the Unsubscribe
+command.
+
+[source,xml]
+   <xsd:element name="Unsubscribe"
+                substitutionGroup="pubsub:Unsubscribe">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="pubsub:UnsubscribeType">
+               <xsd:attributeGroup ref="gss:BaseAttributes"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+include::requirements/REQ299.adoc[]
+
+Resuming an already active subscription shall have no effect.
+
+[[UnsubscribeKVP,Unsubscribe KVP encoding]]
+===== KVP encoding
+
+The following table defined the KVP encoding for the Unsubscribe operation.
+
+[#UnsubscribeKVPEncoding,reftext='{Unsubscribe KVP request encoding} {counter:table-num}']
+.Unsubscribe KVP request encoding
+[width="90%",cols="30%,10%,10%, 50%"]
+|===
+|Parameter Name |O/M |Type |Description
+|REQUEST |M |string |Fixed value of "Unsubscribe"
+|SUBSCRIPTIONIDENTIFIER |M |URI |Comma separated list of subscription identifiers
+|===
+
+[[UnsubscribeResponse,Unsubscribe response encoding]]
+===== Response encoding
+
+See http://docs.opengeospatial.org/is/13-131r1/13-131r1.html#34[OGC Publish/Subscribe Interface Standard 1.0 - Core].
+
+The response may include zero or more gss:ResponseComment elements within the
+pubsub:Extension element to provide additional comments, perhaps in multiple
+languages, about the publication.
+
+include::requirements/REQ300.adoc[]
+
+===== Bindings
+
+[[UnsubscribePoxBinding,Unsubscribe POX-POST Binding]]
+====== OGC POX with POST binding
+
+include::requirements/REQ301.adoc[]
+
+include::requirements/REQ297.adoc[]
+
+[[UnsubscribeKvpBinding,Unsubscribe KVP-GET Binding]]
+====== OGC KVP with GET binding
+
+include::requirements/REQ303.adoc[]
+
+include::requirements/REQ298.adoc[]
+
+[[UnsubscribeSoapBinding,Unsubscribe SOAP Binding]]
+====== SOAP binding
+
+include::requirements/REQ304.adoc[]
+
+include::requirements/REQ302.adoc[]
+
+[[UnsubscribeRestBinding,Unsubscribe REST Binding]]
+====== REST binding
+
+include::requirements/REQ305.adoc[]
+
+include::requirements/REQ306.adoc[]
+
+include::requirements/REQ307.adoc[]

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 18* {set:cellbgcolor:#CACCCE}|/req/core/18
+2+|Unless otherwise specified, a GSS shall sort query responses in descending temporal order such that the most recent event in the result set is presented first.
+|===

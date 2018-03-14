@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 78* {set:cellbgcolor:#CACCCE}|/req/core/78
+2+|The URI of each base feed that a GSS offers shall be advertised in the server's AtomPub Service Document which can be obtained for the server's capabilities document or accessed directly (see <<AtomPub,AtomPub service document section>>).
+|===

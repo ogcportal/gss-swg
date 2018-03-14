@@ -1,0 +1,54 @@
+== Scope
+
+This candidate standard describes a service that allows data collectors to
+propose changes to be made to a data provider's features.  A change proposal
+can be made to create new data or to modify/delete existing data. Proposed
+changes are reviewed (either manually or automatically) and are either accepted
+or rejected.  Accepted changes are applied to the feature(s).  The service
+also maintains a log of all changes applied to each feature that can be used
+for replication.  The service maintains three ATOM feeds to support these
+activities.  The change feed is a log of all proposed changes.  The resolution
+feed is a log of the dispositions of all proposed changes. Finally, the
+replication feed is a log of all changes made to the data store.  Operations
+are described to manage feed entries and this candidate standard describes the
+mandatory content of entries for each of the three feeds.
+
+This candidate standard also describes a query method for the feeds that
+supports spatial, non-spatial and temporal predicates and is compatible with
+the OpenSearch standard.
+
+Finally, this document describes a publish/subscribe API that allows interested
+parties to subscribe to any of the feeds for the purpose of notification and to
+the replication feed for the purpose of synchronizing features.
+
+This candidate standard assumes that all features that participate in a
+Geo-Synchronization federation are accessible using the WFS-T API.  Furthermore,
+all changes to be made to features are described as using the WFS Transaction
+API.
+
+This candidate standard also assumes that some role-based identity management
+systems is available to the service to authenticate users of the service and
+determine their roles as described in this standard.
+
+The candidate standard assumes that the service implements some notification
+mechanism.  For example, a Geo-Synchronization service may access and Web
+Notification Service (see OGC 07-071) to perform the actual notification.
+
+This candidate standard defines 13 operations:
+
+* GetCapabilities
+* GetEntries
+* Insert (feed entries)
+* Update (feed entries)
+* Delete (feed entries)
+* AcceptChange
+* RejectChange
+* CreatePublication
+* RemovePublication
+* ListPublications
+* Subscribe
+* ListSubscriptions
+* Pause
+* Resume
+* Renew
+* Unsubscribe

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 85* {set:cellbgcolor:#CACCCE}|/req/pub/85
+2+|If an ows:Title element is not specified for a publication, the server shall provide a system generated title.
+|===

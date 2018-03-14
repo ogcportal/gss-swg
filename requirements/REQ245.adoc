@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 245* {set:cellbgcolor:#CACCCE}|/req/sub/245
+2+|If a server supports additional notification protocols, it shall advertise those protocols in the server's capabilities document using an ows:Parameter element with the name "NotificationProtocols" within the description of the Subscribe operation.
+|===

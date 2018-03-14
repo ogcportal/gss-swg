@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 249* {set:cellbgcolor:#CACCCE}|/req/sub/249
+2+|The use of the pubsub:FilterLanguageId and pubsub:Filter elements are not defined in this standard.
+|===

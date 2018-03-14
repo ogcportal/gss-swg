@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 315* {set:cellbgcolor:#CACCCE}|/req/sub/soap/315
+2+|Sending a SOAP message, whose body contains an XML-encoded Renew request (see <<RenewXML>>), to the Post URL listed in the server's capabilities document for the Renew operation, using the HTTP POST method, shall generate a SOAP message whose body contains a pubsub:RenewResponse message (see <<RenewResponse>>) or a SOAP fault message containing an exception report (see <<Exception>>) if the operation fails.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 37* {set:cellbgcolor:#CACCCE}|/req/pub/37
+2+|The Geo-Synchronization service type shall be designated by the token "GSS".
+|===

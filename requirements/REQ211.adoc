@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 211* {set:cellbgcolor:#CACCCE}|/req/pub/211
+2+|When creating a publication, the content of the pubsub:Identifier element shall be left empty.
+|===

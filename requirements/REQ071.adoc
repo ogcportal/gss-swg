@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 71* {set:cellbgcolor:#CACCCE}|/req/core/71
+2+|Proposed changes to features offered by a web feature server protected by a GSS shall be recorded as an entry in the GSS's Proposed Change Feed.
+|===

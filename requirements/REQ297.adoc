@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 297* {set:cellbgcolor:#CACCCE}|/req/sub/pox/297
+2+|The HTTP status code for the response to a POX-encoded Unsubscribe operation shall be set to 200.
+|===

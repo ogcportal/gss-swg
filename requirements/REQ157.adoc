@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 157* {set:cellbgcolor:#CACCCE}|/req/core/157
+2+|The default value of the outputFormat attribute shall be "application/atom+xml" indicating that the output shall be an ATOM feed.
+|===

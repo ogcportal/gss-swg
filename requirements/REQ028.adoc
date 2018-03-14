@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 28* {set:cellbgcolor:#CACCCE}|/req/28
+2+|Servers that implement the "OGC KVP with GET" binding shall implement the HTTP GET method (see IETF RFC 2616).
+|===

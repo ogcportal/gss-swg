@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 81* {set:cellbgcolor:#CACCCE}|/req/pub/81
+2+|Each entry in a publication feed shall be accessible via a URI that is a combination of the publication's base URI and the id of the feed entry.
+|===

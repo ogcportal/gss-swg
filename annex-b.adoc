@@ -1,0 +1,39 @@
+[appendix]
+:appendix-caption: Annex
+== BNF for WKT geometry encoding (Informative)
+
+The following definition for a WKT geometry has been copied from OGC 09-049.
+
+....
+   <Geometry Tagged Text> := <Point Tagged Text>
+                           | <LineString Tagged Text>
+                           | <Polygon Tagged Text>
+                           | <MultiPoint Tagged Text>
+                           | <MultiLineString Tagged Text>
+                           | <MultiPolygon Tagged Text>
+                           | <GeometryCollection Tagged Text>
+   <Point Tagged Text> := POINT <Point Text>
+   <LineString Tagged Text> := LINESTRING <LineString Text>
+   <Polygon Tagged Text> := POLYGON <Polygon Text>
+   <MultiPoint Tagged Text> := MULTIPOINT <Multipoint Text>
+   <MultiLineString Tagged Text>:=MULTILINESTRING <MultiLineString Text>
+   <MultiPolygon Tagged Text> := MULTIPOLYGON <MultiPolygon Text>
+   <GeometryCollection Tagged Text> := GEOMETRYCOLLECTION
+                                       <GeometryCollection Text>
+   <Point Text> := EMPTY | ( <Point> )
+   <Point> := <x> <y>
+   <x> := double precision literal
+   <y> := double precision literal
+   <LineString Text> := EMPTY
+      | ( <Point> {, <Point> }* )
+   <Polygon Text> := EMPTY
+      | ( <LineString Text> {, < LineString Text> }*)
+   <Multipoint Text> := EMPTY
+      | ( <Point Text> {, <Point Text> }* )
+   <MultiLineString Text> := EMPTY
+      | ( <LineString Text> {, < LineString Text> }* )
+   <MultiPolygon Text> := EMPTY
+      | ( < Polygon Text> {, < Polygon Text> }* )
+   <GeometryCollection Text> := EMPTY
+      | ( <Geometry Tagged Text> {, <Geometry Tagged Text> }* )
+....

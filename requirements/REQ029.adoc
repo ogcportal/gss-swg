@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 29* {set:cellbgcolor:#CACCCE}|/req/core/pub/rest/29
+2+|Servers that implement the REST binding of the Publication conformance class shall offer the "/publications" resource.
+|===

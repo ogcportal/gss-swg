@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 225* {set:cellbgcolor:#CACCCE}|/req/pub/pox/225
+2+|Sending an XML-encoded RemovePublication message to the Post URL listed in the server's capabilities document for the RemovePublication operation using the HTTP POST method, shall generate an XML-encoded response document containing a pubsub:RemovePublicationResponse message or an exceptions report (see <<Exception>>) if the operation fails.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 22* {set:cellbgcolor:#CACCCE}|/req/core/22
+2+|For a RejectChange operation, the service shall create a new event in the Resolution event channel signaling the rejection and the original change proposal event.
+|===

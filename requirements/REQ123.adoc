@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 123 {set:cellbgcolor:#CACCCE}|/req/core/122
+2+|The mandatory other output format for a capabilities document shall be HTML.
+|===

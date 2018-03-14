@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 145* {set:cellbgcolor:#CACCCE}|/req/core/rest/145
+2+|An ATOM representation of the modified entry shall be returned in the body of response.
+|===

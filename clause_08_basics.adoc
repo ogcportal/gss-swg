@@ -1,0 +1,177 @@
+[[basics]]
+
+== Common messages
+
+=== Introduction
+
+This clause specifies schemas for common messages used by Geo-Synchronization
+servers.  
+
+=== Base request type
+
+==== XML encoding
+
+The following XML Schema fragment defines the base request type:
+
+[source,xml]
+   <xsd:complexType name="BaseRequestType" abstract="true">
+      <xsd:attributeGroup ref="gss:BaseAttributes"/>
+   </xsd:complexType>
+   <xsd:attributeGroup name="BaseAttributes">
+      <xsd:attribute name="service" type="ows:ServiceType"
+                     use="required" fixed="GSS"/>
+      <xsd:attribute name="version" type="xsd:string"
+                     use="required" fixed="1.0.0"/>
+      <xsd:attribute name="handle"
+                     type="xsd:string" use="optional"/>
+   </xsd:attributeGroup>
+   <xsd:simpleType name="DateType">
+      <xsd:union memberTypes="xsd:date xsd:dateTime"/>
+   </xsd:simpleType>
+
+include::requirements/REQ037.adoc[]
+
+include::requirements/REQ038.adoc[]
+
+The optional handle parameter may be used to associate a mnemonic with the
+request for the purpose of error reporting.
+
+The gss:DateType type allow dates to be specified with or without time.
+
+include::requirements/REQ039.adoc[]
+
+==== KVP encoding
+
+The following table defines KVP parameters common to all requests except the
+GetCapabilities request.
+
+[#BaseRequestKVPParameters,reftext='{Base request KVP parameters} {counter:table-num}']
+.Base request KVP parameters
+[width="90%",cols="20%,80%"]
+|===
+|Parameter Name |Type |O/M |Default Value
+|SERVICE |string |M |Fixed value of "GSS"
+|VERSION |string |M |Fixed value of "1.0.0"
+|HANDLE |string |O |
+|===
+
+=== Base response types
+
+==== Introduction
+
+The base response types declare the schema of the response for most GSS
+operations.  The response schemas allow operations, to indicate a subscription,
+publication or entry identifier in the response.  They also allow a link to a
+related resource and a comment to be specified.  Multiple gss:ResponseComment
+elements may appear in a response in order to support multiple languages
+
+==== Publication / Subscription responses
+
+A number of GSS operations defined in the Publication and Subscription
+conformance classes (see <<ConformanceClasses,Conformance Classes>>) are
+dervied from the "OGC PublishSubscribe Interface Standard 1.0 - Core"
+(see OGC13-131r1) and their responses are defined in that document.  The
+following table lists the relevant GSS operations, the expected response
+element for a successful response and the document reference from OGC 13-131r1.
+
+[#PubSubGSSResponses,reftext='{esponses to GSS Publish-Subscribe operations} {counter:table-num}']
+.Responses to GSS Publish-Subscribe operations
+[width="90%",cols="20%,80%"]
+|===
+|Operations |Response Element | Reference 
+| CreatePublication | pubsub:CreatePublicationResponse | See clause 14.2.2
+| RemovePublication | pubsub:RemovePublicationResponse | See clause 14.3.2
+| Subscribe | pubsub:SubscribeResponse | See clause 8.3.3
+| Pause | pubsub:PauseResponse | See clause 10.1.2
+| Renew | pubsub:RenewResponse | See clause 8.5.2
+| Resume | pubsub:ResumeResponse | See clause 10.2.2
+| Unsubscribe | pubsub:UnsubscribeResponse | See clause 8.4.2
+|===
+
+[[BaseResponseType]]
+==== Change management responses
+
+The following XML Schema fragment defines the XML-encoding for the response
+to the AcceptChange and RejectChange operations.
+
+   <xsd:complexType name="BaseResponseType">
+      <xsd:sequence>
+         <xsd:element name="EntryIdentifier" type="xsd:anyURI"/>
+         <xsd:element name="Url" type="xsd:anyURI" minOccurs="0"/>
+         <xsd:element name="ResponseComment" type="ows:LanguageStringType"
+                      minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attributeGroup ref="gss:BaseAttributes"/>
+   </xsd:complexType>
+
+The schema allows a feed entry identifier to be specified in the response.  It
+also allows a link to a related resource and a comment to be specified.
+Multiple gss:ResponseComment elements may appear in a response in order to
+support multiple languages
+
+[[Exceptions]]
+==== Exception message encoding
+
+include::requirements/REQ040.adoc[]
+
+include::requirements/REQ041.adoc[]
+
+The following is an example of an exception report. This exception indicates
+that the first insert statement failed because of a missing closing XML tag
+in the request.
+
+[source,xml]
+   <?xml version="1.0" ?>
+   <ExceptionReport 
+      version="1.1.0" 
+      xmlns="http://www.opengis.net/ogc" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xsi:schemaLocation="owsExceptionReport.xsd"> 
+      <Exception code="999" locator="Line 101"> 
+         <ExceptionText>Feed Error:Invalid feed type specified</ExceptionText>
+      </Exception>
+   </ExceptionReport>
+
+
+==== HTTP methods
+
+This standard defines 4 bindings for each conformance class.  The following
+table summarizes each of the bindings.
+
+[#BindingSummary,reftext='{Summary of bindings described in this standard} {counter:table-num}']
+.Summary of bindings described in this standard
+[width="90%",cols="20%,80%"]
+|===
+|Binding |Description
+|OGC POX with POST |This legacy binding tunnels XML-encoded messages to a server using the HTTP POST method
+|OGC KVP with GET |This legacy binding tunnels KVL-encoded messages to the server
+|SOAP |This legacy binding tunnels SOAP-encoded messages to the server using the HTTP POST method
+|REST |See <<RestBindingSummary>>
+|===
+
+The following table summarizes the HTTP methods and their actions on resources
+for the REST binding.
+
+[#RestBindingSummary,reftext='{REST binding summary} {counter:table-num}']
+.Summary HTTP methods for the REST binding
+[width="90%",cols="20%,80%"]
+|===
+|Method |Action
+|OPTIONS |Gets a list of supported representations and methods for the specified resource (see https://tools.ietf.org/html/rfc7231#section-4.3.7[OPTIONS])
+|GET |Retrieves a representation of a resource(s) from the server
+|HEAD |Identical to  GET but only returns the HTTP headers and not the message body
+|POST |Adds a new instance of a resource to the server
+|PUT |Updates an existing instance of a resource from the server
+|DELETE |Removes an instance of a resource from the server
+|===
+
+include::requirements/REQ027.adoc[]
+
+include::requirements/REQ028.adoc[]
+
+include::requirements/REQ031.adoc[]
+
+include::requirements/REQ032.adoc[]
+
+Servers may optionally implement the other HTTP methods not mentioned in this
+standard.  Their specific meaning with respect to this standard is not defined.

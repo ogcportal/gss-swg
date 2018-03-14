@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 138* {set:cellbgcolor:#CACCCE}|/req/core/rest/138
+2+|To add entries to a feed, an XML-encoded representation of the entry -- with media type "application/atom+xml; type=entry" -- shall be sent (using the HTTP POST method) to the feed's URI (see <<BaseFeedURIs>>).
+|===

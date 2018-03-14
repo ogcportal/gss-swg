@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 213* {set:cellbgcolor:#CACCCE}|/req/pub/213
+2+|The HTTP status code for the response to a CreatePublication operation shall be set to 201.
+|===

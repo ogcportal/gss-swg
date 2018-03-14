@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 24* {set:cellbgcolor:#CACCCE}|/req/core/24
+2+|All synchronized feature types shall be accessible via a WFS.
+|===

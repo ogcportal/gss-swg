@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 146* {set:cellbgcolor:#CACCCE}|/req/core/rest/146
+2+|In response to a DELETE, the server shall signal a successful deletion with an HTTP status code of 200.
+|===

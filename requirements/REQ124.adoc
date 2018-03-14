@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 124* {set:cellbgcolor:#CACCCE}|/req/core/124
+2+|A Transaction operation shall contain one or more Insert, Update or Delete actions that create, modify or remove entries from a base feed.
+|===

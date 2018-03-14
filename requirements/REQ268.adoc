@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 268* {set:cellbgcolor:#CACCCE}|/req/sub/rest/268
+2+|Resolving a URL -- with the HTTP GET method -- formed by appending the ListSubscriptions KVP parameters (see <<ListSubscriptionKVP>>) [with the exception of the SERVICE, VERSION and REQUEST parameters] to the URI of the /subscriptions resource (see <<SubscriptionURIs>>) shall generate an XML-encoded response document containing a gss:ListSubscriptions message or an exceptions report (see <<Exception>>) if the operation fails.
+|===

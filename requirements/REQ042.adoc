@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 42* {set:cellbgcolor:#CACCCE}|/req/core/rest/42
+2+|Servers that implement the REST binding shall offer the "/accepted" and "/rejected" resources.
+|===

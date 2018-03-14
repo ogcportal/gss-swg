@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 212* {set:cellbgcolor:#CACCCE}|/req/pub/212
+2+|The server shall generate an identifier when a new publication is created.
+|===

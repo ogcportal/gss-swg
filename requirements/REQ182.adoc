@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 182* {set:cellbgcolor:#CACCCE}|/req/pub/182
+2+|Only the owner of the publication or system root (see <<PermisionModel>>) shall be allowed to remove a publication from the system.
+|===

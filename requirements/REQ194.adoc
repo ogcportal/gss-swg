@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 194* {set:cellbgcolor:#CACCCE}|/req/pub/rest/194
+2+|The response to a CreatePublication operation shall include a Location HTTP header (see IETF RFC 2616) indicating the new publication's URI.
+|===

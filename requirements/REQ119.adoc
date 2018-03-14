@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 119 {set:cellbgcolor:#CACCCE}|/req/core/kvp/119
+2+|Resolving a URL formed by appending the GetCapabilities KVP parameters (see OGC 06-121r9) to the Get URL listed in the server's capabilities document for the GetCapabilities operation, using the HTTP GET method, shall generate an XML-encoded capabilities document or an exception report (see <<Exception>>) if the operation fails.
+|===

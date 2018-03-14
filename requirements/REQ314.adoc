@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 314* {set:cellbgcolor:#CACCCE}|/req/sub/kvp/314
+2+|Resolving a URL formed by appending the Renew KVP parameters (see <<RenewKVP>>) to the Get URL listed in the server's capabilities document for the Renew operation, using the HTTP GET method, shall generate an XML-encoded response document containing a pubsub:RenewResponse message or an exceptions report (see <<Exception>>) if the operation fails.
+|===

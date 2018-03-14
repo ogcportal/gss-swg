@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 151* {set:cellbgcolor:#CACCCE}|/req/core/151
+2+|A search terms predicate, encoded using the gss:SearchTerms element, shall evaluate to true if any field in the entry being evaluated contains any of the search terms.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 135* {set:cellbgcolor:#CACCCE}|/req/core/pox/135
+2+|Sending an XML-encoded Transaction message to the Post URL listed in the server's capabilities document for the Transaction operation using the HTTP POST method, shall generate an XML-encoded response document containing a gss:TransactionResponse message or an exception report (see <<Exception>>) if the operation fails.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 179* {set:cellbgcolor:#CACCCE}|/req/core/179
+2+|If a proposed change is accepted with modifications the AcceptChange operation shall include a gss:Revision element that shall contain the originally proposed WFS transaction with the modifications made by the reviewer or review process.
+|===

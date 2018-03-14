@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 149* {set:cellbgcolor:#CACCCE}|/req/core/149
+2+|The response to a query or GetEntries operation shall itself be encoded as an ATOM feed but only containing the entries that satisfy the specified query predicates.
+|===

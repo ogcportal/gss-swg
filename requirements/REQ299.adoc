@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 299* {set:cellbgcolor:#CACCCE}|/req/sub/299
+2+|An XML-encoded Unsubscribe operation shall contain a pubsub:SubscriptionIdentifier element identifying a subscription for which notifications shall be permanently suspended and the subscription shall be removed from the system.
+|===

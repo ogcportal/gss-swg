@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 94* {set:cellbgcolor:#CACCCE}|/req/core/94
+2+|In order to promote a high level of compatibility with existing OGC services Geo-Synchronization servers shall provide an OGC capabilities document.
+|===

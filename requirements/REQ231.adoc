@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 231* {set:cellbgcolor:#CACCCE}|/req/core/231
+2+|An XML-encoded ListPublications operation shall include zero or more gss:PublicationIdentifier elements identifying a list of publications to be presented in the response.
+|===

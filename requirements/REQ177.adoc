@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 177* {set:cellbgcolor:#CACCCE}|/req/core/177
+2+|The gss:EntryIdentifier element within the gss:AcceptChange element shall encode the identifier of the entry from the CHANGEFEED that is being accepted.
+|===

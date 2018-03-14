@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 232* {set:cellbgcolor:#CACCCE}|/req/core/232
+2+|If the ListPublications operation contains zero gss:PublicationIdentifier elements, this shall signal to the server that all available publications shall be presented in the response.
+|===

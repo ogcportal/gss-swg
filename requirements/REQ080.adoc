@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 80* {set:cellbgcolor:#CACCCE}|/req/pub/80
+2+|The URI of each publication that a GSS offers shall be advertised in the server's AtomPub Service Document which can be obtained for the server's capabilities document or accessed directly as described in the <<AtomPub,AtomPub service document section>>.
+|===

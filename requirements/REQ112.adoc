@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 112 {set:cellbgcolor:#CACCCE}|/req/core/112
+2+|Editable collections shall accept the media type "application/atom+xml; type=entry".
+|===

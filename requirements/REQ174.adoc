@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 174* {set:cellbgcolor:#CACCCE}|/req/core/174
+2+|Upon receiving an AcceptChange request and successfully applying the change to the target WFS, the server shall create one or more entries in the replication feed each describing the change to a feature that was affected by the change proposal.  Each entry shall be encoded according to the content rules specified in Table 10.
+|===

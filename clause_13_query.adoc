@@ -1,0 +1,251 @@
+[[query]]
+
+== Query
+
+=== Introduction
+
+This clause defines a generalized query operation, called GetEntries, that
+allows feeds to be queried for entries that satisfy some set of spatial and
+non-spatial predicates where the spatial predicates can include geometric and
+temporal constraints.  
+
+include::requirements/REQ149.adoc[]
+
+The operation's parameters are intentionally designed to map the standard
+OpenSearch parameters as well as the parameters found in the geo and time
+extensions (see OGC 10-032).
+
+[[GetEntries,GetEntries operation]]
+=== Request encoding
+
+[[GetEntriesXML,GetEntries XML encoding]]
+==== XML encoding
+
+The following XML Schema fragment defines the XML encoding for the GetEntries
+operation:
+
+[source,xml]
+   <xsd:element name="GetEntries">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="gss:BaseRequestType">
+               <xsd:sequence>
+                  <xsd:element name="SearchTerms" type="xsd:string"
+                               minOccurs="0" maxOccurs="unbounded"/>
+                  <xsd:element ref="fes:Filter" minOccurs="0"/>
+                  <xsd:element ref="fes:SortBy" minOccurs="0"/>
+               </xsd:sequence>
+               <xsd:attribute name="feed" type="xsd:anyURI"/>
+               <xsd:attribute name="outputFormat" type="xsd:string"
+                              use="optional"
+                              default="application/atom+xml"/>
+               <xsd:attribute name="startPosition"
+                              type="xsd:nonNegativeInteger"
+                              use="optional" default="1"/>
+               <xsd:attribute name="maxEntries" type="xsd:nonNegativeInteger"
+                              use="optional" default="25"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="EntryIdentifier"
+                type="gss:EntryIdentifierType"
+                substitutionGroup="fes:_Id"/>
+   <xsd:complexType name="EntryIdentifierType">
+      <xsd:complexContent>
+         <xsd:extension base="fes:AbstractIdType">
+            <xsd:attribute name="eid" type="xsd:anyURI" use="required"/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+include::requirements/REQ150.adoc[]
+
+include::requirements/REQ151.adoc[]
+
+include::requirements/REQ152.adoc[]
+
+include::requirements/REQ153.adoc[]
+
+include::requirements/REQ154.adoc[]
+
+include::requirements/REQ155.adoc[]
+
+include::requirements/REQ156.adoc[]
+
+include::requirements/REQ157.adoc[]
+
+A server may implement other output formats but they are not described in this
+standard.
+
+include::requirements/REQ159.adoc[]
+
+include::requirements/REQ160.adoc[]
+
+include::requirements/REQ161.adoc[]
+
+include::requirements/REQ162.adoc[]
+
+[[GetEntriesKVP,GetEntries KVP encoding]]
+==== KVP encoding
+
+The following table defines the KVP-encoding for the GetEntries operation.
+
+[#GetEntriesKVPEncoding,reftext='{GetEntries KVP request encoding} {counter:table-num}']
+.GetEntries KVP request encoding
+[width="100%",cols="20%,15%,5%,10%,50%"]
+|===
+|Parameter Name |OS Name |O/M |Type |Description
+|REQUEST |f.i.t to REQUEST=GetEntries|M |string |Fixed string GetEntries
+|FEED |f.i.t. to feed name |M |URI |Feed id to query.
+5+|Presentation parameters
+|OUTPUTFORMAT |f.i.t to OUTPUTFORMAT=application/atom+xml |O |string |Servers shall support the string application/atom+xml indicating that the output shall be an ATOM feed.  Other values are allowed but are not assigned any meaning by this candidate standard. The default value is application/atom+xml.
+|STARTPOSITION |startIndex |O |integer |Positive integer indicating start index within result set. The default value is 1.
+|MAXENTRIES |count |O |integer |Indicates the maximum number of entries to present in the response. The default value is 25.
+5+|Sorting clause
+|SORTBY |N/A |O |string |The SORTBY parameter is used to specify a list of entry field names whose values should be used to order (upon presentation) the set of entries that satisfy the query. The value of the SORTBY parameter shall have the form “Field name [ASC or DESC][,Field name  [ASC or DESC],…]” where the letters ASC are used to indicate an ascending sort and the letters DESC are used to indicate a ascending sort. If neither ASC nor DESC are specified, the default sort order shall be descending.
+|===
+
+NOTE: The acronym "f.i.t." stands for "fixed in template".  That is that the value is fixed in an OpenSearch query template.
+
+The following KVP parameters may be used in a GetEntries request to define a
+query predicate. These parameters are copied, for convenience, from Table3a 
+from the OGC Filter Encoding standard (OGC 14-103).
+
+[#FilterKVPEncoding,reftext='{KVP Filter encoding} {counter:table-num}']
+.KVP Filter encoding
+[width="100%",cols="20%,15%,5%,10%,50%"]
+|===
+5+|Text search
+|Q |searchTerms |O |string |Comma-separated list of search terms
+5+|Identity search
+|ENTRYIDENTIFIER |uid |O |string |Identifier of an entry to retrieve
+5+|Spatial search
+|BBOX |box |O |string |Bounding box predicate encoded as specified in 06-121r9.
+|GEOMETRY |geometry |O |string |WKT-encoded geometry specifying an area of interest (see OGC 06-103r4)
+|GEOEMTRY_CRS |N/A |O |anyURI |A URI asserting the CRS of the specified GEOM value.  The default value shall be http://www.opengis.net/def/crs/epsg/0/4326
+|RELATION |relation |O |string |One of: Equals, Disjoint, Touches, Within, Overlaps, Crosses, *Intersects*, Contains
+|DISTANCE |N/A |O |number |If the value of RELATION is DWithin or Beyond, contains the distance value
+|DISTANCE_UOM |N/A |O |string |The units of measure used to express the value of the distance parameter (see http://unitsofmeasure.org/ucum.html)
+5+|Proximity search
+|LAT |lat |O |number |Latitude expressed in WGS84
+|LON |lon |O |number |Longitude expressed in WGS84
+|RADIUS |radius |O |number |Search radius expressed in meters
+5+|Temporal search
+|TIME |start/end |O |string |A time instance or time period. (see http://www.w3.org/TR/NOTE-datetime)
+|TRELATION |N/A |O |string |One of: *After*, Before, Begins, BegunBy, TContains, During, EndedBy, Ends, TEquals, Meets, MetBy, TOverlaps, OverlappedBy, *AnyInteracts*
+5+|Generalized predicate
+|FILTER |N/A |O |string |An XML fragment encoding a OGC filter that is applied to the entries.
+|FILTER_LANGUAGE |N/A |O |string |Indicates the predicate language used to encode the filter expression that is the value of the FILTER parameter.  The default value urn:ogc:def:queryLanguage:OGC-FES:Filter shall be used to indicate that the value of FILTER parameter is a string encoding the filter using an XML fragment as defined in this International Standard.
+|===
+
+NOTE: The GEOMETRY_CRS, RELATION, DISTANCE and DISTANCE_UOM parameters are all modifiers of the GEOMETRY parameter and should only be specified if the GEOMETRY parameter is specified.
+
+NOTE: If specified, the parameters LAT, LON and RADIUS must all be specified together.
+
+NOTE: The TRELATION parameter is a modifier of the TIME parameter and should only be specified if the TIM parameter is specified.
+
+NOTE: The FILTER and FILTER_LANGUAGE parameters are mutually exclusive with the text search, identify search, spatial search, proximity search and temporal search parameters.
+
+NOTE: The implied logical operation for the search parameter is "AND".
+
+NOTE: The default TRELATION value for a single time instant is After.
+
+NOTE: The default TRELATION value for a time period is AnyInteracts.
+
+Basic text searching using the "Q" parameter is expected to be processed as follows:
+
+. Match against the full text of all the character-valued properties of an entry
+. Matching is case insensitive
+. In the case of multiple search terms, if any of the property values being tested, as per (a), contains at least one of the specified search terms then that entry shall appear in the result set
+
+==== Invoking GetEntries using a standard OpenSearch client
+
+Many OpenSearch clients are not aware of the geo and time extensions of
+OpenSearch and they would definitely not be aware of any of the extensions
+proposed in this document.  This presents a usage problem since the power of
+the GetEntries operation would be limited to specialized clients rather than
+standard OpenSearch clients such as Firefox or Internet Explorer.
+
+Over time, standard OpenSearch clients will implement the geo and time
+extensions.  However, until that time this candidate standard proposes
+overloading the searchTerms parameter to handle the geo and time extensions.
+The proposed syntax for embedding geo and time parameter within the searchTerms
+parameter is:
+
+<namespace prefix>:<parameter>"(" value ")"
+
+Example:
+Consider a query that searches for entries containing the terms "rails" and
+"roads" and also includes the spatial predicate "bbox=10,10,20,20".  The
+following figure illustrates how such a query would be embedded into the
+search box of a browser.
+
+Firefox would pass to the server the search terms 'rails', 'roads' and the
+string 'geo:box(10,10,20,20)'.  It is then the responsibility of the
+Geo-Synchronization server to recognize the geo:box parameter and apply the
+spatial predicate to the query.
+
+==== Description document
+
+The following XML fragment illustrated how an OpenSearch URL template is
+created using the GetEntries operation:
+
+[source,xml]
+   <Url type="application/atom+xml"
+        template="http://www.pvretano.com/gss/cubeserv.cgi?
+                  service=GSS&
+                  version=1.0.0&
+                  request=GetEntries&
+                  feed=CHANGEFEED&
+                  outputFormat=ATOM&
+                  startPosition={startIndex?}&
+                  maxEntries={count?}&
+                  q={searchTerms?}&
+                  bbox={geo:box?}&
+                  time={time:start?}&
+                  temporalOp=After"/>
+
+GetEntries parameters, such as service and version that do not map to
+OpenSearch parameters are hard coded into the template.  GetEntries parameters,
+such as bbox and start time, that map to OpenSearch parameters are encoded
+using the substitution variable syntax described in the OpenSearch standard
+(see OpenSearch).
+
+=== Response encoding
+
+include::requirements/REQ163.adoc[]
+
+include::requirements/REQ164.adoc[]
+
+include::requirements/REQ165.adoc[]
+
+=== Bindings
+
+[[GetEntriesPoxBinding,GetEntries POX-POST Binding]]
+==== POX with POST binding
+
+include::requirements/REQ166.adoc[]
+
+include::requirements/REQ043.adoc[]
+
+[[GetEntriesKvpBinding,GetEntries KVP-GET Binding]]
+==== KVP with GET binding
+
+include::requirements/REQ168.adoc[]
+
+include::requirements/REQ158.adoc[]
+
+[[GetEntriesSoapBinding,GetEntries SOAP Binding]]
+==== SOAP binding
+
+include::requirements/REQ170.adoc[]
+
+include::requirements/REQ167.adoc[]
+
+[[GetEntriesRestBinding,GetEntries REST Binding]]
+==== REST binding
+
+include::requirements/REQ169.adoc[]
+
+include::requirements/REQ175.adoc[]

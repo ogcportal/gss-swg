@@ -1,0 +1,116 @@
+[big]*i.     Abstract*
+
+Agile spatial data infrastructures, based on OGC standards, allow data provider
+organizations to deploy increasingly efficient networks capable of responding
+to dynamic requirements for using geospatial data.  In this context, data
+provider organizations are being more and more called upon to deliver current,
+timely and verified data over the World Wide Web. In order to satisfy these
+requirements, data providers must collaborate with outside entities to collect
+new data and/or update their existing data holdings.  This may, for example,
+mean synchronizing their data with closest-to-source providers as might be the
+case between municipal, state/provincial and/or federal levels of government.
+This may also mean crowd-sourcing (see http://en.wikipedia.org/wiki/Crowdsourcing)
+their data production or supporting volunteer geographic information (VGI).
+Crowd-sourcing or VGI has proven to be a very effective tool for emergency
+management / disaster relief situations as is evidenced by the response to the
+Haiti earthquake of 12th January, 2010. Regardless of the nature of the collaboration,
+there is a need for a service to mediate the interaction between data providers
+and outside entities acting as data collectors.  The service must support data
+entry with validation, notification of changes to interested parties and allow
+synchronization of external services with the data provider's features.
+
+A Geo-Synchronization service, deployed by a data provider, sits between the
+provider's data store(s) and "the crowd" and supports the following functions:
+
+1. The service provides authentication and role-based access control so that a data provider can define who is authorized to propose changes (i.e. a member of "the crowd" and  who or what is authorized to validate proposed changes before they are applied to the data provider's data store(s).
+
+2. It allows members of "the crowd" to submit proposals for new data, for modifications to existing data, or for the removal of existing data without directly affecting the data in the provider's data store(s) until validation has been applied to the proposal thus ensuring that the data published by the provider is of high quality.
+
+3. It allows interested parties (i.e. subscribers) to be notified whenever any change (i.e. event) of interest occurs on the system.  The types of changes that can be tracked include proposed changes, the disposition of proposed changes and proposed changes that have been accepted and applied to the data provider's data store(s).
+
+4. It supports synchronization of external data stores with the data provider's features.  This can be a passive process whereby the external service periodically interrogates the Geo-Synchronization service to determine which changes have occurred or an active process whereby the Geo-Synchronization service pushes changes to external services as they occur.
+
+This candidate standard makes no assumption about the nature of the validation
+or the quality criteria that a provider has established; only that the
+Geo-Synchronization service allows the data to be evaluated for quality by 
+an authorized entity(ies) before being applied to the provider's data store(s).
+For example, changes submitted by trusted members of the crowd may be applied
+directly to the provider's data stores while data obtained from untrusted 
+sources would be subjected to more rigorous validation. Validation might
+involve a manual process where authorized human reviewers check each submitted
+piece of data to assess its quality.  Similarly, automated heuristics might be
+applied to assess the quality of the data.  In any case, the data is validated
+before being applied to the data  provider's data store(s).
+
+Interested parties (or subscribers) must be able to flexibly track which
+changes have been submitted by "the crowd", what the disposition of those
+changes was (i.e. whether the changes were accepted or rejected by the
+validation process) and also track the actual changes applied to feature in the
+provider's data store(s) for the purpose of synchronization.  This flexible
+notification capability is achieved by allowing subscribers to create
+"standing queries" that include predicates that precisely identify about which
+events they are interested in being notified.  For example, a subscriber might
+register that they are interested in receiving notifications about proposed
+changes made within a specific geographic area.
+
+Finally, a Geo-Synchronization service must support the synchronization of 
+external services with information in the data provider's data store(s).
+The Geo-Synchronization service maintains an event channel containing a
+log of all changes made to features in the data provider's data store(s).
+This channel may be used to support passive or active synchronization.
+In passive synchronization, interested external entities periodically read
+the event channel and any new changes to their data store(s).  In active
+synchronization, interested external entities subscribe to the
+Geo-Synchronization service which then push changes to the external entity's
+data store(s) as they occur.  Synchronization may be full or partial depending
+on the filters defined to identify events of interest.  Synchronization may
+possibly involve a schema translation for the provider's feature schema to
+the feature schema of the synchronizing server.
+
+[big]*ii.    Keywords*
+
+The following are keywords to be used by search engines and document catalogues.
+
+ogcdoc, OGC document, synchronization, crowdsourcing, WFS, web feature service, publish, subscribe, notification, ATOM, event, spatial, temporal, filter, OGC 
+filter
+
+[big]*iii.   Preface*
+
+Currently, there is no prior art within the OGC on the topic of volunteered
+geographic information (VGI) or crowdsourcing.  This standard addresses these
+topics by defining a service to manage the process of VGI or crowdsourced 
+data collection in a way that allows the data to be reviewed by responsible
+parties before being entered into a datastore.  The content of this standard
+integrates the work of a number of OGC testbeds including the GeoConnections
+Canadian Geospatial Data Infrastructure (CGDI) Pilot, OGC Testbed 11, OGC
+Testbed 12, OGC Testbed 13 and incorporates work done during the development
+of the OGC Publish/Subscribe Interface Standard.
+
+Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.
+
+Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
+
+[big]*iv.    Submitting organizations*
+
+The following organizations submitted this Document to the Open Geospatial Consortium (OGC):
+
+Organization name(s)
+
+* CubeWerx Inc.
+* The Carbon Project
+* Ministère des resources naturelles et de la faune
+* Ministère des transports du Québec
+
+[big]*v.     Submitters*
+
+All questions regarding this submission should be directed to the editor or the submitters:
+
+.Contacts
+[width="95%",options="header"]
+|====================
+|Name |Email |Organization
+|Panagiotis (Peter) A. Vretanos (ed.) |pvretano[at]cubewerx.com |CubeWerx Inc.
+|Jeff Harrison |jharrison[at]thecarbonproject.com |The Carbon Project
+|Romain Métivier |romain.metivier[at]mrnf.gouv.qc.ca |MRNF
+|Gaetan Poulin |gaetan.poulin[at]mtq.gouv.qc.ca |MTQ
+|====================

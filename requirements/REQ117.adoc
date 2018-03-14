@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 117 {set:cellbgcolor:#CACCCE}|/req/core/117
+2+|A Geo-Synchronization service shall use the media type of application/opensearchdescription+xml when returning the OpenSearch Description Document.
+|===

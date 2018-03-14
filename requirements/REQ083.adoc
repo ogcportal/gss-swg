@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 83* {set:cellbgcolor:#CACCCE}|/req/core/83
+2+|Event feeds and entries shall be encoded according to the ATOM specification described in IETF RFC 4287,5023 with geographic components being encoded using GeoRSS (see OGC 17-002r1).
+|===

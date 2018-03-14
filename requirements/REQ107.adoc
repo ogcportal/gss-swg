@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 107 {set:cellbgcolor:#CACCCE}|/req/core/107
+2+|If the contents of the gss:ConformanceClass element is "false" this shall indicating that the server does not implement the named conformance class. 
+|===

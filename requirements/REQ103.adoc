@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 103 {set:cellbgcolor:#CACCCE}|/req/core/103
+2+|A full capabilities document shall include an atom:link element, with rel="related" that references the server's AtomPub service document (see IETF RFC 5023).
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 129* {set:cellbgcolor:#CACCCE}|/req/core/129
+2+|Servers that support additional inputFormat values shall advertise those values in the server's capabilities document using the ows:Parameter element (see 06-121r3, 7.4.6).
+|===

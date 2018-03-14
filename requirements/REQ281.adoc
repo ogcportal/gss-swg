@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 281* {set:cellbgcolor:#CACCCE}|/req/sub/rest/281
+2+|Sending a gss:Subscription message (see <<SubscriptionEncoding>>) using the HTTP PUT method, where the value of the pubsub:Paused parameter has been set to "true", to the subscriptions URI (see <<SubscriptionURIs>>) shall update the subscription and pause any further notifications.
+|===

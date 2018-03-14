@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 155* {set:cellbgcolor:#CACCCE}|/req/core/155
+2+|The feed attribute on the gss:GetEntries element shall be used to specify the identifier of one of the GSS base feeds to query.
+|===

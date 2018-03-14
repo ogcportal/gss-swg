@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 72* {set:cellbgcolor:#CACCCE}|/req/core/72
+2+|Proposed changes shall be expressed as WFS transactions (see OGC 09-025r2) within a change feed entry.
+|===

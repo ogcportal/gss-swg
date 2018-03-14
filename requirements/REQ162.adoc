@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 162* {set:cellbgcolor:#CACCCE}|/req/core/162
+2+|The optional gss:EntryIdentifier element shall be used in a Filter expression to identify specific entries to be retrieved by a GetEntries request.
+|===

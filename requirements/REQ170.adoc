@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 170* {set:cellbgcolor:#CACCCE}|/req/core/soap/170
+2+|Sending a SOAP message, whose body contains an XML-encoded GetEntries request (see <<GenEntriesXML>>), to the Post URL listed in the server's capabilities document for the GetEntries operation, using the HTTP POST method, shall generate a SOAP message whose body contains an ATOM feed containing the entries -- in the default order or the order specified by an fes:SortBy clause -- that satisfy the query predicates (see <<FilterKVPEncoding>>) or a SOAP fault message containing an exception report (see <<Exception>>) if the operation fails.
+|===

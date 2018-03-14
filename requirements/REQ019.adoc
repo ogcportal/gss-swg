@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 19* {set:cellbgcolor:#CACCCE}|/req/core/19
+2+|The AcceptChange operation shall create a new event in the Resolution event channel signaling that the proposed change was accepted.
+|===

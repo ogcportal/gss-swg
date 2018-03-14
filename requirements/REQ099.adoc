@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 99* {set:cellbgcolor:#CACCCE}|/req/core/99
+2+|The request encoding of the GetCapabilities request shall be as specified in sub-clause 7.2.2 of OGC document 06-121r3.
+|===

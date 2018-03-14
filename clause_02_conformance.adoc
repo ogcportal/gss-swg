@@ -1,0 +1,35 @@
+== Conformance
+
+The following table lists the conformance classes defined in this standard. Each
+class is characterized by an Interface and protocol binding resulting in 4
+conformance classes being define.
+
+[#ConformanceClasses,reftext='{Conformance classes} {counter:table-num}']
+.Conformance classes
+[cols="20%,18%,26%,9%,9%,9%,9%",width="90%"]
+|===
+3+| 4+|BINDINGS
+|CONFORMANCE CLASS |Interface |Operations |OGC POX |OGC KVP |REST |SOAP
+.5+|Core |Discovery |<<GetCapabilities,GetCapabilities>> |<<GetCapabilitiesPoxBinding,see>>|<<GetCapabilitiesKvpBinding,see>> |<<GetCapabilitiesRestBinding,see>> |<<GetCapabilitiesSoapBinding,see>>
+|Transaction |<<Transaction,Insert, Update, Delete>> |<<TransactionPoxBinding,see>>|N/A|<<TransactionRestBinding,see>>|<<TransactionSoapBinding,see>>
+|Query |<<GetEntries,GetEntries>> |<<GetEntriesPoxBinding,see>> |<<GetEntriesKvpBinding,see>> |<<GetEntriesRestBinding,see>> |<<GetEntriesSoapBinding,see>>
+|Publication |<<ListPublications,ListPublications>> |<<ListPublicationsPoxBinding,see>>|<<ListPublicationsKvpBinding,see>>|<<ListPublicationsRestBinding,see>>|<<ListPublicationsSoapBinding,see>>
+|Change Management |<<AcceptChange,AcceptChange>>, <<RejectChange,RejectChange>> |<<AcceptChangePoxBinding,see>>, <<RejectChangePoxBinding,see>> |<<AcceptChangeKvpBinding,see>>, <<RejectChangeKvpBinding,see>> |<<AcceptChangeRestBinding,see>>, <<RejectChangeRestBinding,see>> |<<AcceptChangeSoapBinding,see>>, <<RejectChangeSoapBinding,see>>
+|Publication |Publication |<<CreatePublication,CreatePublication>>, <<RemovePublication,RemovePublication>> |<<CreatePublicationPoxBinding,see>>, <<RemovePublicationPoxBinding,see>> |<<CreatePublicationKvpBinding,see>>, <<RemovePublicationKvpBinding,see>> |<<CreatePublicationRestBinding,see>>, <<RemovePublicationRestBinding,see>>  |<<CreatePublicationSoapBinding,see>>, <<RemovePublicationSoapBinding,see>> 
+|Subscription |Subscription |<<Subscribe,Subscribe>>, <<ListSubscriptions,ListSubscriptions>>, <<Pause,Pause>>, <<Resume,Resume>>, <<Renew,Renew>>, <<Unsubscribe,Unsubscribe>> |<<SubscribePoxBinding,see>>, <<ListSubscriptionsPoxBinding,see>>, <<PausePoxBinding,see>>, <<ResumePoxBinding,see>>, <<RenewPoxBinding,see>>, <<UnsubscribePoxBinding,see>> |<<SubscribeKvpBinding,see>>, <<ListSubscriptionsKvpBinding,see>>, <<PauseKvpBinding,see>>, <<ResumeKvpBinding,see>>, <<RenewKvpBinding,see>>, <<UnsubscribeKvpBinding,see>> |<<SubscribeRestBinding,see>>, <<ListSubscriptionsRestBinding,see>>, <<PauseRestBinding,see>>, <<ResumeRestBinding,see>>, <<RenewRestBinding,see>>, <<UnsubscribeRestBinding,see>>  |<<SubscribeSoapBinding,see>>, <<ListSubscriptionsSoapBinding,see>>, <<PauseSoapBinding,see>>, <<ResumeSoapBinding,see>>, <<RenewSoapBinding,see>>, <<UnsubscribeSoapBinding,see>>
+|Synchronization |<<Sync,Sync>> |<<Subscribe,Subscribe>> |<<SubscribePoxBinding,see>>|<<SubscribeKvpBinding,see>> |<<SubscribeRestBinding,see>> |<<SubscribeSoapBinding,see>>
+|===
+
+Conformance with this standard shall be checked using all the relevant tests
+specified in Annex A (normative) of this document. The framework, concepts, and
+methodology for testing, and the criteria to be achieved to claim conformance
+are specified in the OGC Compliance Testing Policies and Procedures and the OGC
+Compliance Testing web site.
+
+In order to conform to this OGC(R) interface standard, a software implementation
+shall choose to implement:
+
+* The "Core" conformance class
+* Zero or more of the other conformance classes defined in the <<ConformanceClasses,Conformance Classes>> table
+* One or more "Bindings" specified in <<ConformanceClasses, Conformance Classes>> table for the implemented conformance classes
+

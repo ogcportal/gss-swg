@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 32* {set:cellbgcolor:#CACCCE}|/req/32
+2+|Servers that implement the REST binding shall implement the HTTP OPTIONS, GET, HEAD, POST, PUT, and DELETE methods.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 234* {set:cellbgcolor:#CACCCE}|/req/core/pox/234
+2+|The HTTP status code for the response to a POX-encoded ListPublications operation shall be set to 200.
+|===

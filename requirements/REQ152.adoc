@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 152* {set:cellbgcolor:#CACCCE}|/req/core/152
+2+|If a GetEntries request includes a selection clause, it shall be encoded using the fes:Filter element.
+|===

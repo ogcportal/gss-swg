@@ -1,0 +1,15 @@
+== Media Types
+
+The following table lists the MIME types that are normatively used in this 
+standard.
+
+[#MimeTypes,reftext='{MIME Types} {counter:table-num}']
+.MIME Types
+[width="90%",cols="60%,40%",options="header"]
+|===
+|Mime Type |Description
+|application/atom+xml |ATOM feed
+|application/atomsvc+xml |ATOM service document
+|application/opensearchdescription+xml |OpenSearch description document
+|application/gml+xml; version=X.X |GML object (X.X = gml version)
+|===

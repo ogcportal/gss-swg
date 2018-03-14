@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 130* {set:cellbgcolor:#CACCCE}|/req/core/130
+2+|The response to a Transaction operation shall contains one or more gss:EntryIdentifier elements, one for each entry that is operated upon by the transaction.
+|===

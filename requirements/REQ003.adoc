@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 3* {set:cellbgcolor:#CACCCE}|/req/core/3
+2+|In the event that a proposed change is accepted, it shall be applied to the data provider's data store and one or more events shall be registered to the Replication event channel individually describing the exact change that was made to each affected feature.  
+|===

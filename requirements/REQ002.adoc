@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 2* {set:cellbgcolor:#CACCCE}|/req/core/2
+2+|Events registered in the Resolution channel shall be cross-linked with events registered in the Proposed Change channel so that an interested party can track the disposition of one or more proposed changes.  
+|===

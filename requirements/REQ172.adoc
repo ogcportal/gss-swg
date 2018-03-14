@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 172* {set:cellbgcolor:#CACCCE}|/req/core/172
+2+|Upon receiving an AcceptChange request the server shall apply the specified change (or its revision) to the target WFS.
+|===

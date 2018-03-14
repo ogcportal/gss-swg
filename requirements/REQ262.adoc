@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 262* {set:cellbgcolor:#CACCCE}|/req/sub/262
+2+|The response to a ListSubscriptions operation shall consist of a list of gss:Subscription elements (see <<SubscriptionEncoding>>) each describing a subscription.
+|===

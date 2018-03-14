@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 122 {set:cellbgcolor:#CACCCE}|/req/core/121
+2+|The canonical representation for service metadata SHALL be the XML-encoded OGC capabilities document (i.e. text/xml) as defined in the <<GetCapabilities>> clause.
+|===

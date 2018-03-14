@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 21* {set:cellbgcolor:#CACCCE}|/req/core/21
+2+|The AcceptChange operation shall apply the proposed change to the data store that is under the control of the GSS and shall create one or more events in the Replication event channel signaling the changes made.
+|===

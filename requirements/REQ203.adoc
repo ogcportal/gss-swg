@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 203* {set:cellbgcolor:#CACCCE}|/req/core/rest/203
+2+|Sending an empty request body to a URL formed by appending the RejectChange KVP parameters (see <<RejectChangeKVP>>) [with the exception of the SERVER, VERSION and REQUEST parameters] to the /rejected resource using the HTTP PUT method, shall signal that the proposed change identified using the ENTRYIDENTIFIER parameter has been rejected.
+|===

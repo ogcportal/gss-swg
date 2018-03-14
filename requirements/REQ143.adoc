@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 143* {set:cellbgcolor:#CACCCE}|/req/core/rest/143
+2+|The response shall include a Location header indicating the entry URI of the Atom Entry, and an ATOM representation of the entry shall be returned in the body of the response.
+|===

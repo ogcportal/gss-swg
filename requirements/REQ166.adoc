@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 166* {set:cellbgcolor:#CACCCE}|/req/core/pox/166
+2+|Sending an XML-encoded GetEntries message to the Post URL listed in the server's capabilities document for the GetEntries operation using the HTTP POST method, shall, by default, generate an ATOM feed containing the entries -- in the default order or the order specified by a fes:SortBy clause -- that satisfy the query predicates or an exception report (see <<Exception>>) if the operation fails.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 14* {set:cellbgcolor:#CACCCE}|/req/core/14
+2+|When a user requests a list of subscriptions from the system, the user shall only be able to see the subscriptions they own.
+|===

@@ -1,0 +1,198 @@
+== Terms and Definitions
+This document uses the terms defined in Sub-clause 5.3 of [OGC 06-121r8], which is based on the ISO/IEC Directives, Part 2, Rules for the structure and drafting of International Standards. In particular, the word "shall" (not "must") is the verb form used to indicate a requirement to be strictly followed to conform to this standard.
+
+For the purposes of this document, the following additional terms and definitions apply.
+
+=== Terms
+
+==== *attribute*
+name-value pair contained in an element
+
+==== *base URL*
+HTTP GET URL for a server's OGC capabilities document without the
+GetCapabilities request parameters attached
+
+NOTE: this base URL must match the HTTP GET base URL reported in the
+Capabilities document of the service
+
+NOTE: the base URL is used to identify the server in lieu of a service id which
+is not currently define in OWS common but has been posted a change request to
+OGC (see OGC 11-117)
+
+==== *category document*
+documents that describe the categories allowed in Collection
+
+==== *change feed*
+collection of ATOM entries that describe changes to a data store expressed
+using the WFS Transaction syntax (see OGC 04-094)
+
+==== *client*
+software component that can invoke an operation from a server
+
+==== *collection*
+resource that contains a set of member resources
+
+NOTE: In this candidate standard, collection are implemented as ATOM feeds
+(see IETF 4287).
+
+==== *collector*
+a person or entity that proposes changes to data
+
+==== *coordinate*
+one of a sequence of n numbers designation the position of a point in
+n-dimensional space
+
+==== *coordinate reference system*
+coordinate system that is related to an object by datum
+
+==== *element*
+basic information item of an XML document containing child element, attribute
+and character data
+
+==== *entry resource*
+members of a collection that are represented as ATOM entry documents (see IETF
+RFC 4287)
+
+==== *event*
+any detectable or discernible occurrence that has significance for the
+management of an SDI
+
+==== *feature*
+abstraction of real world phenomena
+
+==== *feature identifier*
+identifier that uniquely designates a feature instance
+
+==== *filter expression*
+predicate expression encoded in XML (see OGC 04-095)
+
+==== *subscriber*
+person or process that accesses or subscribes to the replication feed of a GSS
+for the purpose of data synchronization
+
+==== *integrator*
+person or process that reviews proposed data changes and then makes a
+determination (based on established criteria) if the proposed change is
+acceptable or not)
+
+==== *interface*
+named set of operations that characterize the behaviour of an entity
+
+==== *local resource*
+resource that is under the direct control of a system
+
+==== *member resource*
+resource whose URI is listed in a Collection with a atom:link element with a
+relation of "edit" or "edit-media"
+
+==== *Multipurpose Internet Mail Extensions (MIME) type*
+media type and subtype of data in the body of a message that designates the
+native representation (canonical form) of such data
+
+==== *namespace*
+collection of names, identified by a URI reference which are used in XML
+documents as element names and attribute names
+
+==== *operation*
+specification of a transformation or query that an object may be called to
+execute
+
+==== *property*
+facet or attribute of an object, referenced by name
+
+==== *publisher*
+synonym for collector (see 4.6)
+
+==== *remote resource*
+a resource that is not under the direct control of a system
+
+==== *replication feed*
+collection of ATOM entries containing a log of changes that have been applied
+to a data store that can be used for the purpose of replicating or
+synchronizing with that data store
+
+==== *representation*
+entity included with a request or response (see IETF RFC 2616)
+
+==== *request*
+invocation of an operation by a client
+
+==== *resolution feed*
+collection of ATOM entries describing the disposition of proposed changes
+listed in a change feed
+
+==== *resource*
+asset or means that fulfills a requirement
+
+NOTE: In this candidate standard a resource is a network-accessible data object
+or service identified by an URI, as defined in [RFC2616]
+
+==== *response*
+result of an operation returned from a server to a client
+
+==== *reviewer*
+synonym for integrator (see 4.15)
+
+==== *schema*
+format description of a model
+
+==== *schema <XML Schema>*
+collection of schema components within the same target namespace
+
+==== *server*
+particular instance of a service
+
+==== *service*
+distinct part of the functionality that is provided by an entity through an
+interface
+
+==== *service metadata*
+metadata describing the operations and information available at a server
+
+==== *service document*
+XML document that describes the location and capabilities of one or more
+collections grouped into workspaces
+
+==== *topic*
+collection of ATOM entries that satisfy some query predicates
+
+NOTE: this is also referred to as a filtered feed because a topic is generated
+by querying a base feed and applying some predicate; for example a topic could
+consist of all the entries that lie within some defined boundary
+
+==== *Uniform Resource Identifier*
+unique identifier for a resource, structured in conformance with IETF RFC 3986
+
+NOTE: The general syntax is <scheme>::<scheme-specified-part>.  The
+hierarchical syntax with a namespace is <scheme://<authority><path>?<query>
+
+==== *Workspace*
+named group of collections
+
+=== Abbreviated terms
+
+|===
+|AtomPub | ATOM Publishing Protocol
+|CGDI    | Canadian Geospatial Data Infrastructure
+|CRS     | Coordinate Reference System
+|DCP     | Distributed Computing Platform
+|EPSG    | European Petroleum Survey Group
+|FES     | Filter Encoding Specification
+|GSS     | Geo-Synchronization Service
+|GML     | Geography Markup Language
+|HTTP    | Hypertext Transfer Protocol
+|HTTPS   | Secure Hypertext Transfer Protocol
+|IETF    | Internet Engineering Task Force
+|KVP     | Keyword-value pairs
+|MIME    | Multipurpose Internet Mail Extensions
+|OGC     | Open Geospatial Consortium
+|OWS     | OGC Web Service
+|SDI     | Spatial Data Infrastructure
+|URI     | Uniform Resource Identifier
+|URL     | Uniform Resource Locator
+|URN     | Uniform Resource Name
+|VSP     | Vendor Specific Parameter
+|WNS     | Web Notification Service
+|WFS     | Web Feature Service
+|XML     | Extensible Markup Language
+|===

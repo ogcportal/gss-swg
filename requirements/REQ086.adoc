@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 86* {set:cellbgcolor:#CACCCE}|/req/pub/86
+2+|The content type for all publications shall be application/atom+xml.
+|===

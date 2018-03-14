@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 153* {set:cellbgcolor:#CACCCE}|/req/core/153
+2+|The implied logical operation when both the gss:SearchTerms and ogc:Filter elements are specified for a GetEntries operation shall be AND.
+|===

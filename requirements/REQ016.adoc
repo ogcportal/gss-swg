@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 16* {set:cellbgcolor:#CACCCE}|/req/core/16
+2+|As such, a GSS shall offer operations that allow events to be created, modified or removed from an event channel.
+|===

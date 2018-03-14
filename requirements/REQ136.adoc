@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 136* {set:cellbgcolor:#CACCCE}|/req/core/pox/136
+2+|The HTTP status code for the response to a POX-encoded Transaction operation shall be set to 200.
+|===

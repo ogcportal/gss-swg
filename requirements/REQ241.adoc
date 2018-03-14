@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 241* {set:cellbgcolor:#CACCCE}|/req/core/soap/241
+2+|Sending a SOAP message, whose body contains an XML-encoded ListPublications request (see <<ListPublicationsXML>>), to the Post URL listed in the server's capabilities document for the ListPublications operation, using the HTTP POST method, shall generate a SOAP message whose body contains a gss:ListPublicationsResponse message (see <<ListPublicationsResponse>>) or a SOAP fault message containing an exception report (see <<Exception>>) if the operation fails.
+|===

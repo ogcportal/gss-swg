@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 215* {set:cellbgcolor:#CACCCE}|/req/pub/soap/215
+2+|The HTTP status code for the response to a SOAP-encoded CreatePublication operation shall be set to 200.
+|===

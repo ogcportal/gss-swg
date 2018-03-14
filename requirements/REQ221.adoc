@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 221* {set:cellbgcolor:#CACCCE}|/req/pub/221
+2+|A RemovePublication operation shall contain one or more PublicationIdentifier parameters whose value shall be the server-generated identified of the publication(s) to be removed from the system.
+|===

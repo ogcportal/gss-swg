@@ -1,0 +1,788 @@
+[[discovery]]
+
+== Discovery interface
+
+=== Introduction
+
+In order to commence interacting with a Geo-Synchronization server, a client
+needs to discover metadata about the service that describes which protocol
+version(s) the server supports, what operations are available, what their
+access points are, which resources are available, etc.
+
+OGC capabilities documents, AtomPub Service Documents and OpenSearch Description
+documents are designed to provide the necessary information although using
+different schemas and providing a different amount of detail about the server.
+
+include::requirements/REQ094.adoc[]
+
+include::requirements/REQ095.adoc[]
+
+include::requirements/REQ096.adoc[]
+
+include::requirements/REQ097.adoc[]
+
+[[GetCapabilities,Get Capabilities Operation]]
+=== GetCapabilities operation
+
+==== Introduction
+
+The GetCapabilities operation generates a service metadata document describing
+a Geo-Synchronization service provided by a server.
+
+include::requirements/REQ098.adoc[]
+
+===== Request encoding
+
+include::requirements/REQ099.adoc[]
+
+[[GetCapabilitiesResponse,GetCapabilities response encoding]]
+===== Response encoding
+
+The root element of the response to a GetCapabilities request is the
+gss:Capabilities element which is declared by the following XML Schema
+fragment:
+
+[source,xml]
+   <xsd:element name="Capabilities"
+                type="gss:CapabilitiesType"/>
+   <xsd:complexType name="CapabilitiesType">
+      <xsd:complexContent>
+         <xsd:extension base="ows:CapabilitiesBaseType">
+            <xsd:sequence>
+               <xsd:element ref="atom:link"
+                            minOccurs="0" maxOccurs="unbounded"/>
+               <xsd:element ref="pubsub:DeliveryCapabilities" minOccurs="0"/>
+               <xsd:element ref="pubsub:Publications" minOccurs="0"/>
+               <xsd:element ref="gss:ConformanceDeclaration"/>
+               <xsd:element ref="fes:Filter_Capabilities" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="ConformanceDeclaration">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="ConformanceClass"
+                         minOccurs="1" maxOccurs="unbounded">
+               <xsd:complexType>
+                  <xsd:simpleContent>
+                     <xsd:extension base="xsd:boolean">
+                        <xsd:attribute name="name"
+                                       type="gss:ConformanceClassName"/>
+                     </xsd:extension>
+                  </xsd:simpleContent>
+               </xsd:complexType>
+            </xsd:element>
+         </xsd:sequence>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:simpleType name="ConformanceClassName">
+      <xsd:restriction base="xsd:string">
+         <xsd:pattern value="Core_OGC_POX"/>
+         <xsd:pattern value="Core_OGC_KVP"/>
+         <xsd:pattern value="Core_REST"/>
+         <xsd:pattern value="Core_SOAP"/>
+         <xsd:pattern value="Publication_OGC_POX"/>
+         <xsd:pattern value="Publication_OGC_KVP"/>
+         <xsd:pattern value="Publication_REST"/>
+         <xsd:pattern value="Publication_SOAP"/>
+         <xsd:pattern value="Subscription_OGC_POX"/>
+         <xsd:pattern value="Subscription_OGC_KVP"/>
+         <xsd:pattern value="Subscription_REST"/>
+         <xsd:pattern value="Subscription_SOAP"/>
+         <xsd:pattern value="Synchronization"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+
+The base type, ows:CapabilitiesBaseType, is defined in the OWS Common
+Implementation Specification (see OGC 06-121-r3, 7.2.4).  The elements
+ows:ServiceIdentification, ows:ServiceProvider and ows:OperationMetadata
+are inherited from the base type ows:CapabilitiesBaseType.
+
+In addition to the sections defined in sub-clause 7.4 of OGC 06-121r3 a
+capabilities response document of a GSS may contain one or more of following
+sections: a Delivery Capabilities section, a Conformance Declaration
+section and a Filter Capabilities section.
+
+include::requirements/REQ103.adoc[]
+
+include::requirements/REQ104.adoc[]
+
+include::requirements/REQ105.adoc[]
+
+include::requirements/REQ106.adoc[]
+
+include::requirements/REQ107.adoc[]
+
+The schema of the Filter Capabilities Section is defined in ISO 19143 and is
+used to advertise the expressions that may be used to form query predicates
+
+[[AtomPub]]
+==== AtomPub service document section
+
+AtomPub resource discovery starts with the publication of a URI for a Service
+Document. The AtomPub Service Document section describes the available
+workspaces and collections as per the IETF RFC 5023.
+
+include::requirements/REQ108.adoc[]
+
+include::requirements/REQ109.adoc[]
+
+include::requirements/REQ110.adoc[]
+
+include::requirements/REQ112.adoc[]
+
+Other media types may be accepted but their meaning is not defined in this
+standard.
+
+include::requirements/REQ113.adoc[]
+
+A Collection may also contain Categories, which define a controlled vocabulary
+on the Collection. 
+
+include::requirements/REQ115.adoc[]
+
+For more information on Category documents, see AtomPub clause 7.  For a full
+explanation of the encoding of a Service Document, see AtomPub clause 8.
+ 
+Example
+
+The following XML fragment shows the AtomPub service document for the
+fictitious GSS at Acme Corp..
+
+[source,xml]
+<?xml version="1.0" encoding="UTF-8"?>
+<service xmlns="http://www.w3.org/2007/app"
+        xmlns:atom="http://www.w3.org/2005/Atom">
+   <workspace>
+      <atom:title>Geo-Synchronization Service</atom:title>
+      <collection href="http://www.acme.com/gss.cgi/changefeed">
+         <atom:title>Change Feed</atom:title>
+         <accept>application/atom+xml; type=entry</accept>
+      </collection>
+      <collection href="http://www.acme.com/gss.cgi/resolutionfeed">
+         <atom:title>Resolution Feed</atom:title>
+         <accept>application/atom+xml; type=entry</accept>
+         <app:categories
+              fixed="yes"
+              scheme="http://www.opengis.org/gss/categories/res">
+            <atom:category term="Accepted" />
+            <atom:category term="Rejected" />
+         </app:categories>
+      </collection>
+      <collection href="http://www.acme.com/gss.cgi/replicationfeed">
+         <atom:title>Replication Feed</atom:title>
+         <accept>application/atom+xml; type=entry</accept>
+         <app:categories
+              fixed="yes"
+              scheme="http://www.opengis.org/gss/categories/rep">
+            <atom:category term="Insert" />
+            <atom:category term="Update" />
+            <atom:category term="Delete" />
+         </app:categories>
+      </collection>
+      <collection href="http://www.acme.com/gss.cgi/publication">
+         <atom:title>Publications</atom:title>
+         <accept>text/xml</accept>
+      </collection>
+      <collection href="http://www.acme.com/gss.cgi/subscription">
+         <atom:title>Subscriptions</atom:title>
+         <accept>text/xml</accept>
+      </collection>
+   </workspace>
+</service>
+
+In this example, the server is advertising collections for the three base feeds,
+changefeed, resolutionfeed and replicationfeed, as well as collections for
+publications and subscriptions.
+
+[[OpenSearchDesc,OpenSearch description document section]]
+===== OpenSearch description document section
+
+include::requirements/REQ116.adoc[]
+
+include::requirements/REQ117.adoc[]
+
+For a full explanation of the encoding of an OpenSearch Document, see http://www.opensearch.org.
+
+Example: The following XML fragment is an example of an OpenSearch description
+document.
+
+[source,xml]
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+   <ShortName>Geo-Synchronization Feed Search</ShortName>
+   <Description>Search the feeds managed by a GSS.</Description>
+   <Tags>Geo-Synchronization feed collaboration GSS search</Tags>
+   <Contact>admin@acme.com</Contact>
+   <Url type="application/atom+xml"
+        template="http://www.acme.com/gss.cgi?
+                  service=GSS&
+                  version=1.0.0&
+                  request=GetEntries&
+                  feed=changefeed&
+                  outputFormat=ATOM&
+                  startPosition={startIndex?}&
+                  maxEntries={count?}&
+                  searchTerms={searchTerms?}&
+                  bbox={geo:box?}&
+                  starttime={time:start?}&
+                  temporalOp=After"/>   
+   <LongName>Acme Geo-Synchronization Service Feed Search</LongName>
+   <Image height="64" width="64"
+          type="image/png">http://acme.com/websearch.png</Image>
+   <Query role="example" count="25" />
+   <Developer>Example.com Development Team</Developer>
+   <Attribution>Copyright 2005, Acme.com, Inc., All Rights Reserved</Attribution>
+   <SyndicationRight>open</SyndicationRight>
+   <AdultContent>false</AdultContent>
+   <Language>en-us</Language>
+   <OutputEncoding>UTF-8</OutputEncoding>
+   <InputEncoding>UTF-8</InputEncoding>
+</OpenSearchDescription>
+
+===== Example capabilities document
+
+The following example shows the capabilities document from a server that was
+implemented for OGC Testbed-13:
+
+[source,xml]
+   <?xml version="1.0" encoding="UTF-8"?>
+   <GSS_Capabilities
+      version="1.0.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:ows="http://www.opengis.net/ows/1.1"
+      xmlns:ogc="http://www.opengis.net/ogc"
+      xmlns="http://www.opengis.net/gss/1.0"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:cw="http://www.cubewerx.com/cw"
+      xsi:schemaLocation="http://www.opengis.net/gss/1.0
+         http://www.pvretano.com/schemas/gss/1.0.0/gss.xsd
+         http://www.w3.org/1999/xlink
+         http://www.pvretano.com/schemas/xlink/1.0.0/xlinks.xsd
+         http://www.opengis.net/ows/1.1
+         http://www.pvretano.com/schemas/ows/1.1.0/owsAll.xsd
+         http://www.opengis.net/ogc
+         http://www.pvretano.com/schemas/filter/1.1.0/filter.xsd">
+      <ServiceIdentification xmlns="http://www.opengis.net/ows/1.1">
+         <Title>CubeWerx (c) GeoSynchronization Service for OGC Testbed 13</Title>
+         <Abstract xml:lang="en">GeoSynchronization is a method by which geospatial data within a data store is kept current, and by which two or more geospatial data stores can be kept "in-sync" with each other, using existing OGC interfaces, and standards-based subscription/notification models (RSS/ATOM). The GeoSynchronization service interface uses the Atom Publishing Protocol and Publish/Subscribe interface to provide functionality that:
+   
+   (a) Advertises changes made to a geospatial database creates and edits GeoRSS feeds in support of data currency and replication, using the Atom Publishing Protocol.
+   
+   (b) Alerts subscribers to the service of proposed changes, resolutions to those changes, and replication transactions available.
+   
+   (c) Harvests those changes using the OpenSearch protocol.
+   
+   The data currency and replication capability of the GeoSynchronization Service is accomplished by the use of feeds, managed by the Service. Feeds are published by one data source, (the Publisher) and subscribed to by another data source (the Subscriber). The Publisher adds an entry in its feed for any change made to its database. The Subscriber receives alerts when new transactions have occurred, retrieves their contents, and applies them to its database.
+   
+   The GeoSynchronization service uses the draft OpenSearch protocol to provide discovery and query of its feeds.</Abstract>
+         <Keywords>
+            <Keyword xml:lang="en">geo</Keyword>
+            <Keyword xml:lang="en">synchronization</Keyword>
+            <Keyword xml:lang="en">feed</Keyword>
+            <Keyword xml:lang="en">entry</Keyword>
+         </Keywords>
+         <ServiceType>GSS</ServiceType>
+         <ServiceTypeVersion>1.0.0</ServiceTypeVersion>
+      </ServiceIdentification>
+      <ServiceProvider xmlns="http://www.opengis.net/ows/1.1">
+         <ProviderName>CubeWerx Inc.</ProviderName>
+         <ProviderSite xlink:href="http://www.cubewerx.com/"/>
+         <ServiceContact>
+            <IndividualName>Panagiotis (Peter) A. Vretanos</IndividualName>
+            <PositionName>CTO / Senior Developer</PositionName>
+            <ContactInfo>
+               <Phone>
+                  <Voice>(999)999-9999</Voice>
+                  <Facsimile>(999)999-9999</Facsimile>
+               </Phone>
+               <Address>
+                  <DeliveryPoint>815 boulevard de la Carrière</DeliveryPoint>
+                  <City>Gatineau</City>
+                  <AdministrativeArea>Québec</AdministrativeArea>
+                  <PostalCode>J8Y 6T4</PostalCode>
+                  <Country>Canada</Country>
+                  <ElectronicMailAddress>pvretano@cubewerx.com</ElectronicMailAddress>
+               </Address>
+            </ContactInfo>
+         </ServiceContact>
+      </ServiceProvider>
+      <ows:OperationsMetadata>
+         <ows:Operation name="GetCapabilities">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Get xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation&amp;"/>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+            <ows:Parameter name="AcceptVersions">
+               <ows:AllowedValues>
+                  <ows:Value>1.0.0</ows:Value>
+               </ows:AllowedValues>
+            </ows:Parameter>
+            <ows:Parameter name="AcceptFormats">
+               <ows:AllowedValues>
+                  <ows:Value>text/xml</ows:Value>
+                  <ows:Value>application/atom+xml</ows:Value>
+               </ows:AllowedValues>
+            </ows:Parameter>
+            <ows:Parameter name="Sections">
+               <ows:AllowedValues>
+                  <ows:Value>ServiceIdentification</ows:Value>
+                  <ows:Value>ServiceProvider</ows:Value>
+                  <ows:Value>OperationsMetadata</ows:Value>
+                  <ows:Value>service</ows:Value>
+                  <ows:Value>AtomPubService</ows:Value>
+                  <ows:Value>OpensearchDescription</ows:Value>
+                  <ows:Value>OpensearchDescriptionDocument</ows:Value>
+                  <ows:Value>Filter_Capabilities</ows:Value>
+               </ows:AllowedValues>
+            </ows:Parameter>
+         </ows:Operation>
+         <ows:Operation name="CreatePublication">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Get xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation&amp;"/>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+         </ows:Operation>
+         <ows:Operation name="RemovePublication">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Get xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation&amp;"/>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+         </ows:Operation>
+         <ows:Operation name="ListPublications">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Get xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation&amp;"/>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+         </ows:Operation>
+         <ows:Operation name="Subscribe">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Get xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation&amp;"/>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+            <ows:Parameter name="NotificationProtocols">
+               <ows:AllowedValues>
+                  <ows:Value>mailto:</ows:Value>
+                  <ows:Value>sync:</ows:Value>
+               </ows:AllowedValues>
+            </ows:Parameter>
+         </ows:Operation>
+         <ows:Operation name="ListSubscriptions">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Get xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation&amp;"/>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+         </ows:Operation>
+         <ows:Operation name="Pause">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Get xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation&amp;"/>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+         </ows:Operation>
+         <ows:Operation name="Resume">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Get xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation&amp;"/>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+         </ows:Operation>
+         <ows:Operation name="Unsubscribe">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Get xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation&amp;"/>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+         </ows:Operation>
+         <ows:Operation name="AcceptChange">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Get xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation&amp;"/>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+         </ows:Operation>
+         <ows:Operation name="RejectChange">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Get xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation&amp;"/>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+         </ows:Operation>
+         <ows:Operation name="GetEntries">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Get xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation&amp;"/>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+            <ows:Parameter name="feed">
+               <ows:AllowedValues>
+                  <ows:Value>CHANGEFEED</ows:Value>
+                  <ows:Value>RESOLUTIONFEED</ows:Value>
+                  <ows:Value>REPLICATIONFEED</ows:Value>
+               </ows:AllowedValues>
+            </ows:Parameter>
+            <ows:Parameter name="outputFormat">
+               <ows:AllowedValues>
+                  <ows:Value>text/xml</ows:Value>
+                  <ows:Value>application/atom+xml</ows:Value>
+               </ows:AllowedValues>
+            </ows:Parameter>
+            <ows:Parameter name="resultType">
+               <ows:AllowedValues>
+                  <ows:Value>results</ows:Value>
+                  <ows:Value>hits</ows:Value>
+               </ows:AllowedValues>
+            </ows:Parameter>
+         </ows:Operation>
+         <ows:Operation name="Transaction">
+            <ows:DCP>
+               <ows:HTTP>
+                  <ows:Post xlink:href="http://www.pvretano.com/cubewerx/cubeserv?DATASTORE=foundation"/>
+               </ows:HTTP>
+            </ows:DCP>
+            <ows:Parameter name="typeName">
+               <ows:AllowedValues>
+                  <ows:Value>CHANGEFEED</ows:Value>
+               </ows:AllowedValues>
+            </ows:Parameter>
+            <ows:Parameter name="inputFormat">
+               <ows:AllowedValues>
+                  <ows:Value>text/xml</ows:Value>
+                  <ows:Value>application/atom+xml</ows:Value>
+               </ows:AllowedValues>
+            </ows:Parameter>
+         </ows:Operation>
+         <ows:Constraint name="srsName">
+            <ows:AllowedValues>
+               <ows:Value>EPSG:42110</ows:Value>
+               <ows:Value>EPSG:4326</ows:Value>
+               <ows:Value>CRS:84</ows:Value>
+               <ows:Value>EPSG:3857</ows:Value>
+               <ows:Value>AUTO2:42001</ows:Value>
+               <ows:Value>AUTO2:42002</ows:Value>
+               <ows:Value>AUTO2:42003</ows:Value>
+               <ows:Value>AUTO2:42004</ows:Value>
+               <ows:Value>EPSG:4267</ows:Value>
+               <ows:Value>CRS:27</ows:Value>
+               <ows:Value>EPSG:4269</ows:Value>
+               <ows:Value>CRS:83</ows:Value>
+               <ows:Value>EPSG:26703</ows:Value>
+               <ows:Value>EPSG:26704</ows:Value>
+               <ows:Value>EPSG:26705</ows:Value>
+               <ows:Value>EPSG:26706</ows:Value>
+               <ows:Value>EPSG:26707</ows:Value>
+               <ows:Value>EPSG:26708</ows:Value>
+               <ows:Value>EPSG:26709</ows:Value>
+               <ows:Value>EPSG:26710</ows:Value>
+               <ows:Value>EPSG:26711</ows:Value>
+               <ows:Value>EPSG:26712</ows:Value>
+               <ows:Value>EPSG:26713</ows:Value>
+               <ows:Value>EPSG:26714</ows:Value>
+               <ows:Value>EPSG:26715</ows:Value>
+               <ows:Value>EPSG:26716</ows:Value>
+               <ows:Value>EPSG:26717</ows:Value>
+               <ows:Value>EPSG:26718</ows:Value>
+               <ows:Value>EPSG:26719</ows:Value>
+               <ows:Value>EPSG:26720</ows:Value>
+               <ows:Value>EPSG:26721</ows:Value>
+               <ows:Value>EPSG:26722</ows:Value>
+               <ows:Value>EPSG:26903</ows:Value>
+               <ows:Value>EPSG:26904</ows:Value>
+               <ows:Value>EPSG:26905</ows:Value>
+               <ows:Value>EPSG:26906</ows:Value>
+               <ows:Value>EPSG:26907</ows:Value>
+               <ows:Value>EPSG:26908</ows:Value>
+               <ows:Value>EPSG:26909</ows:Value>
+               <ows:Value>EPSG:26910</ows:Value>
+               <ows:Value>EPSG:26911</ows:Value>
+               <ows:Value>EPSG:26912</ows:Value>
+               <ows:Value>EPSG:26913</ows:Value>
+               <ows:Value>EPSG:26914</ows:Value>
+               <ows:Value>EPSG:26915</ows:Value>
+               <ows:Value>EPSG:26916</ows:Value>
+               <ows:Value>EPSG:26917</ows:Value>
+               <ows:Value>EPSG:26918</ows:Value>
+               <ows:Value>EPSG:26919</ows:Value>
+               <ows:Value>EPSG:26920</ows:Value>
+               <ows:Value>EPSG:26921</ows:Value>
+               <ows:Value>EPSG:26922</ows:Value>
+               <ows:Value>EPSG:26923</ows:Value>
+               <ows:Value>EPSG:32601</ows:Value>
+               <ows:Value>EPSG:32602</ows:Value>
+               <ows:Value>EPSG:32603</ows:Value>
+               <ows:Value>EPSG:32604</ows:Value>
+               <ows:Value>EPSG:32605</ows:Value>
+               <ows:Value>EPSG:32606</ows:Value>
+               <ows:Value>EPSG:32607</ows:Value>
+               <ows:Value>EPSG:32608</ows:Value>
+               <ows:Value>EPSG:32609</ows:Value>
+               <ows:Value>EPSG:32610</ows:Value>
+               <ows:Value>EPSG:32611</ows:Value>
+               <ows:Value>EPSG:32612</ows:Value>
+               <ows:Value>EPSG:32613</ows:Value>
+               <ows:Value>EPSG:32614</ows:Value>
+               <ows:Value>EPSG:32615</ows:Value>
+               <ows:Value>EPSG:32616</ows:Value>
+               <ows:Value>EPSG:32617</ows:Value>
+               <ows:Value>EPSG:32618</ows:Value>
+               <ows:Value>EPSG:32619</ows:Value>
+               <ows:Value>EPSG:32620</ows:Value>
+               <ows:Value>EPSG:32621</ows:Value>
+               <ows:Value>EPSG:32622</ows:Value>
+               <ows:Value>EPSG:32623</ows:Value>
+               <ows:Value>EPSG:32624</ows:Value>
+               <ows:Value>EPSG:32625</ows:Value>
+               <ows:Value>EPSG:32626</ows:Value>
+               <ows:Value>EPSG:32627</ows:Value>
+               <ows:Value>EPSG:32628</ows:Value>
+               <ows:Value>EPSG:32629</ows:Value>
+               <ows:Value>EPSG:32630</ows:Value>
+               <ows:Value>EPSG:32631</ows:Value>
+               <ows:Value>EPSG:32632</ows:Value>
+               <ows:Value>EPSG:32633</ows:Value>
+               <ows:Value>EPSG:32634</ows:Value>
+               <ows:Value>EPSG:32635</ows:Value>
+               <ows:Value>EPSG:32636</ows:Value>
+               <ows:Value>EPSG:32637</ows:Value>
+               <ows:Value>EPSG:32638</ows:Value>
+               <ows:Value>EPSG:32639</ows:Value>
+               <ows:Value>EPSG:32640</ows:Value>
+               <ows:Value>EPSG:32641</ows:Value>
+               <ows:Value>EPSG:32642</ows:Value>
+               <ows:Value>EPSG:32643</ows:Value>
+               <ows:Value>EPSG:32644</ows:Value>
+               <ows:Value>EPSG:32645</ows:Value>
+               <ows:Value>EPSG:32646</ows:Value>
+               <ows:Value>EPSG:32647</ows:Value>
+               <ows:Value>EPSG:32648</ows:Value>
+               <ows:Value>EPSG:32649</ows:Value>
+               <ows:Value>EPSG:32650</ows:Value>
+               <ows:Value>EPSG:32651</ows:Value>
+               <ows:Value>EPSG:32652</ows:Value>
+               <ows:Value>EPSG:32653</ows:Value>
+               <ows:Value>EPSG:32654</ows:Value>
+               <ows:Value>EPSG:32655</ows:Value>
+               <ows:Value>EPSG:32656</ows:Value>
+               <ows:Value>EPSG:32657</ows:Value>
+               <ows:Value>EPSG:32658</ows:Value>
+               <ows:Value>EPSG:32659</ows:Value>
+               <ows:Value>EPSG:32660</ows:Value>
+               <ows:Value>EPSG:32701</ows:Value>
+               <ows:Value>EPSG:32702</ows:Value>
+               <ows:Value>EPSG:32703</ows:Value>
+               <ows:Value>EPSG:32704</ows:Value>
+               <ows:Value>EPSG:32705</ows:Value>
+               <ows:Value>EPSG:32706</ows:Value>
+               <ows:Value>EPSG:32707</ows:Value>
+               <ows:Value>EPSG:32708</ows:Value>
+               <ows:Value>EPSG:32709</ows:Value>
+               <ows:Value>EPSG:32710</ows:Value>
+               <ows:Value>EPSG:32711</ows:Value>
+               <ows:Value>EPSG:32712</ows:Value>
+               <ows:Value>EPSG:32713</ows:Value>
+               <ows:Value>EPSG:32714</ows:Value>
+               <ows:Value>EPSG:32715</ows:Value>
+               <ows:Value>EPSG:32716</ows:Value>
+               <ows:Value>EPSG:32717</ows:Value>
+               <ows:Value>EPSG:32718</ows:Value>
+               <ows:Value>EPSG:32719</ows:Value>
+               <ows:Value>EPSG:32720</ows:Value>
+               <ows:Value>EPSG:32721</ows:Value>
+               <ows:Value>EPSG:32722</ows:Value>
+               <ows:Value>EPSG:32723</ows:Value>
+               <ows:Value>EPSG:32724</ows:Value>
+               <ows:Value>EPSG:32725</ows:Value>
+               <ows:Value>EPSG:32726</ows:Value>
+               <ows:Value>EPSG:32727</ows:Value>
+               <ows:Value>EPSG:32728</ows:Value>
+               <ows:Value>EPSG:32729</ows:Value>
+               <ows:Value>EPSG:32730</ows:Value>
+               <ows:Value>EPSG:32731</ows:Value>
+               <ows:Value>EPSG:32732</ows:Value>
+               <ows:Value>EPSG:32733</ows:Value>
+               <ows:Value>EPSG:32734</ows:Value>
+               <ows:Value>EPSG:32735</ows:Value>
+               <ows:Value>EPSG:32736</ows:Value>
+               <ows:Value>EPSG:32737</ows:Value>
+               <ows:Value>EPSG:32738</ows:Value>
+               <ows:Value>EPSG:32739</ows:Value>
+               <ows:Value>EPSG:32740</ows:Value>
+               <ows:Value>EPSG:32741</ows:Value>
+               <ows:Value>EPSG:32742</ows:Value>
+               <ows:Value>EPSG:32743</ows:Value>
+               <ows:Value>EPSG:32744</ows:Value>
+               <ows:Value>EPSG:32745</ows:Value>
+               <ows:Value>EPSG:32746</ows:Value>
+               <ows:Value>EPSG:32747</ows:Value>
+               <ows:Value>EPSG:32748</ows:Value>
+               <ows:Value>EPSG:32749</ows:Value>
+               <ows:Value>EPSG:32750</ows:Value>
+               <ows:Value>EPSG:32751</ows:Value>
+               <ows:Value>EPSG:32752</ows:Value>
+               <ows:Value>EPSG:32753</ows:Value>
+               <ows:Value>EPSG:32754</ows:Value>
+               <ows:Value>EPSG:32755</ows:Value>
+               <ows:Value>EPSG:32756</ows:Value>
+               <ows:Value>EPSG:32757</ows:Value>
+               <ows:Value>EPSG:32758</ows:Value>
+               <ows:Value>EPSG:32759</ows:Value>
+               <ows:Value>EPSG:32760</ows:Value>
+               <ows:Value>EPSG:41001</ows:Value>
+               <ows:Value>EPSG:42101</ows:Value>
+               <ows:Value>EPSG:42103</ows:Value>
+               <ows:Value>EPSG:42105</ows:Value>
+               <ows:Value>EPSG:102002</ows:Value>
+            </ows:AllowedValues>
+         </ows:Constraint>
+      </ows:OperationsMetadata>
+      <service xmlns="http://www.w3.org/2007/app"
+         xmlns:atom="http://www.w3.org/2005/Atom">
+         <workspace>
+            <atom:title>Some Title</atom:title>
+            <collection
+               href="http://www.pvretano.com/cubewerx/cubeserv/default/gss/1.0.0/foundation/CHANGEFEED">
+               <atom:title>GeoSynchronization Server - Change Feed</atom:title>
+            </collection>
+            <collection
+               href="http://www.pvretano.com/cubewerx/cubeserv/default/gss/1.0.0/foundation/REPLICATIONFEED">
+               <atom:title>GeoSynchronization Server - Replication Feed</atom:title>
+            </collection>
+            <collection
+               href="http://www.pvretano.com/cubewerx/cubeserv/default/gss/1.0.0/foundation/RESOLUTIONFEED">
+               <atom:title>GeoSynchronization Server - Resolution Feed</atom:title>
+            </collection>
+         </workspace>
+      </service>
+      <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"/>
+      <Filter_Capabilities xmlns="http://www.opengis.net/ogc"
+         xmlns:gml="http://www.opengis.net/gml"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.opengis.net/ogc http://www.pvretano.com/schemas/filter/1.1.0/filterCapabilities.xsd">
+         <Spatial_Capabilities>
+            <GeometryOperands>
+               <GeometryOperand>gml:Point</GeometryOperand>
+               <GeometryOperand>gml:LineString</GeometryOperand>
+               <GeometryOperand>gml:Polygon</GeometryOperand>
+               <GeometryOperand>gml:Envelope</GeometryOperand>
+            </GeometryOperands>
+            <SpatialOperators>
+               <SpatialOperator name="BBOX"/>
+               <SpatialOperator name="Equals"/>
+               <SpatialOperator name="Disjoint"/>
+               <SpatialOperator name="Intersects"/>
+               <SpatialOperator name="Touches"/>
+               <SpatialOperator name="Crosses"/>
+               <SpatialOperator name="Within"/>
+               <SpatialOperator name="Contains"/>
+               <SpatialOperator name="Overlaps"/>
+            </SpatialOperators>
+         </Spatial_Capabilities>
+         <Scalar_Capabilities>
+            <LogicalOperators/>
+            <ComparisonOperators>
+               <ComparisonOperator>LessThan</ComparisonOperator>
+               <ComparisonOperator>GreaterThan</ComparisonOperator>
+               <ComparisonOperator>LessThanEqualTo</ComparisonOperator>
+               <ComparisonOperator>GreaterThanEqualTo</ComparisonOperator>
+               <ComparisonOperator>EqualTo</ComparisonOperator>
+               <ComparisonOperator>NotEqualTo</ComparisonOperator>
+               <ComparisonOperator>Like</ComparisonOperator>
+               <ComparisonOperator>Between</ComparisonOperator>
+               <ComparisonOperator>NullCheck</ComparisonOperator>
+            </ComparisonOperators>
+            <ArithmeticOperators>
+               <SimpleArithmetic/>
+               <Functions>
+                  <FunctionNames>
+                     <FunctionName nArgs="1">MIN</FunctionName>
+                     <FunctionName nArgs="1">MAX</FunctionName>
+                  </FunctionNames>
+               </Functions>
+            </ArithmeticOperators>
+         </Scalar_Capabilities>
+         <Id_Capabilities>
+            <FID/>
+         </Id_Capabilities>
+      </Filter_Capabilities>
+   </GSS_Capabilities>
+
+==== Bindings
+
+[[GetCapabilitiesPoxBinding,GetCapabilities POX-POST Binding]]
+===== OGC POX with POST binding
+
+include::requirements/REQ118.adoc[]
+
+[[GetCapabilitiesKvpBinding,GetCapabilities KVP-GET Binding]]
+===== OGC KVP with GET binding
+
+include::requirements/REQ119.adoc[]
+
+[[GetCapabilitiesSoapBinding,GetCapabilities SOAP Binding]]
+===== SOAP binding
+
+include::requirements/REQ120.adoc[]
+
+[[GetCapabilitiesRestBinding,GetCapabilities REST Binding]]
+===== REST binding
+
+include::requirements/REQ121.adoc[]
+
+The standard GetCapabilities KVP parameters (see OGC 06-121r9, clause 7.2.3)
+may be appended to the base server URL to negotiate version, request acceptable 
+formats and specify specific subsections of the capabilities document to 
+appear in the response.
+
+The query parameter "sections" may be appended to the "/" resource.  It is a
+comma-separated list of capabilities document sections to include in the
+response document.  Valid values for the sections parameter are:
+ServiceIdenitification, ServiceProvider, OperationsMetadata,
+AtomPubServiceDocument, OpenSearchDescriptionDocumnet, DeliveryCapabilities,
+Publications and Filter_Capabilities.
+              
+include::requirements/REQ122.adoc[]
+
+include::requirements/REQ123.adoc[]
+
+This standard does not provide a standard definition for the capabilities
+document expressed in HTML however, the content of the HTML representation
+should be the same as the XML representation.
+
+Other representations (e.g. JSON) are allowed but are not described in this
+standard
+
+The following table describes the actions the server should take when the
+specified method is applied to the "/" resource.
+
+[width="90%",cols="20%,80%"]
+|===
+|Method |Action
+|OPTIONS |Gets list of supported representations and methods for the capabilities document via the Accept and Allow HTTP headers
+|GET |Gets the complete capabilities document
+|POST |Not specified by this standard
+|PUT |Not specified by this standard
+|DELETE |Not specified by this standard
+|===
+
+===== HTTP status code
+
+include::requirements/REQ074.adoc[]

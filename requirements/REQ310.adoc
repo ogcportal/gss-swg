@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 310* {set:cellbgcolor:#CACCCE}|/req/sub/310
+2+|An XML-encoded Renew operation shall contain a pubsub:SubscriptionIdentifier element identifying a subscription whose termination time is to be renewed.
+|===

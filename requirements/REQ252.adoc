@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 252* {set:cellbgcolor:#CACCCE}|/req/core/kvp/252
+2+|The HTTP status code for the response to a KVP-encoded ListSubscriptions operation shall be set to 200.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 257* {set:cellbgcolor:#CACCCE}|/req/sub/kvp/257
+2+|Resolving a URL formed by appending the Subscribe KVP parameters (see <<SubscribeKVP>>) to the Get URL listed in the server's capabilities document for the Subscribe operation, using the HTTP GET method, shall generate an XML-encoded response document containing a pubsub:SubscribeResponse message or an exceptions report (see <<Exception>>) if the operation fails.
+|===

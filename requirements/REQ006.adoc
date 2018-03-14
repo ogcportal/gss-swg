@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 6* {set:cellbgcolor:#CACCCE}|/req/core/6
+2+|A GSS shall define a root or system user who is omnipotent within the system.
+|===

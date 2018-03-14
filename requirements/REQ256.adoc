@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 256* {set:cellbgcolor:#CACCCE}|/req/sub/pox/256
+2+|The HTTP status code for the response to a POX-encoded Subscribe operation shall be set to 200.
+|===

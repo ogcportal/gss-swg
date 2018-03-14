@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 248* {set:cellbgcolor:#CACCCE}|/req/sub/248
+2+|The value of the pubsub:ContentType element shall, by default, be "application/atom+xml" or one of the other supported output formats advertised by the server in its capabilities document (see <<GetCapabilitiesResponse>>).
+|===

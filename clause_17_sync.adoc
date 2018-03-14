@@ -1,0 +1,120 @@
+[[sync]]
+
+== Sync interface
+
+=== Introduction
+
+All GSS servers, whether they implement the Synchronization conformance or not,
+support "pull" synchronization by virtue of the fact that any entity or agent 
+can read the contents of the replication feed and synchronize external (i.e.
+servers not within the control domain of a GSS) data servers based on the
+information in that feed.
+
+This clause, however, describes "push" synchronization where the GSS acts as
+a WFS client and pushes changes from the server's replication feed to
+subscribers.  In this case, "subscribers" are external data servers that have
+been registered to receive updates from a GSS.
+
+Push synchronization -- referred to as synchronization from this point on --
+makes use of the subscription interface to register external data servers to
+receive updates from a GSS.
+
+[[Sync,Sync notification]]
+=== Sync delivery method
+
+This standard defines a new notification delivery method, "sync", that has the
+following format:
+
+....
+   sync:<serverurl>[,<transformation url>]
+....
+
+where the serverurl is the base URL of an external data server (i.e. WFS) that
+the GSS shall keep synchronized based on the specified subscription.  In the
+event that source and target WFS schemas are not the same, an optional
+transformation URL may may point to a document (e.g. XSLT document) or service
+that can transform a transaction as recorded in a Replication Feed entry to a
+transaction suitable for the target server.
+
+include::requirements/REQ318.adoc[]
+
+Example:
+
+The following example illustrates how an external data server can be registered 
+to be synchronized whenever new, accepted, changes appear in the replication
+feed for a specific feature type.
+
+First, a publication must exist or needs to be created that defines the entries
+of interest from the replication feed.  Here is an example of such a publication:
+
+[source,xml]
+   <?xml version="1.0" encoding="UTF-8"?>
+   <gss:Publication
+      xmlns:gss="http://www.opengis.net/gss/1.0"
+      xmlns:fes="http://www.opengis.net/ogc/2.0"
+      xmlns:ows="http://www.opengis.net/ows/1.1"
+      xmlns:qc="http://www.gouv.qc.ca/mern"
+      xmlns:pubsub="http://www.opengis.net/pubsub/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.opengis.net/gss/1.0 ../gss.xsd">
+      <ows:Title>Gatineau Changes</ows:Title>
+      <ows:Abstract>This publication lists all the changes made in the Gatineau region in Quebec, Canada</ows:Abstract>
+      <pubsub:Identifier>urn:uuid:a632acb0-4680-43da-924c-5ff7629fc04e</pubsub:Identifier>
+      <pubsub:ContentType>application/atom+xml</pubsub:ContentType>
+      <pubsub:BasePublicationIdentifier>http://www.acme.com/gss/replicationfeed</pubsub:BasePublicationIdentifier>
+      <pubsub:Filter>
+         <fes:Filter>
+            <fes:And>
+               <fes:PropertyIsEqualTo>
+                  <fes:ValueReference>entry/category/@scheme</fes:ValueReference>
+                  <fes:Literal>http://www.opengis.org/geosync/featureType</fes:Literal>
+               <fes:PropertyIsEqualTo>
+               <fes:PropertyIsEqualTo>
+                  <fes:ValueReference>entry/category/@term</fes:ValueReference>
+                  <fes:Literal>qc:Roads</fes:Literal>
+               <fes:PropertyIsEqualTo>
+               </fes:PropertyIsEqualTo>
+               <fes:Intersects>
+                  <fes:PopertyName>entry/georss:where</fes:PropertyName>
+                  <gml:Polygon> ... <gml:Polygon>
+               </fes:Intersects>
+            </fes:And>
+         </fes:Filter>
+      </pubsub:Filter>
+      <pubsub:FilterLanguageId>http://www.opengis.net/fes/2.0</pubsub:FilterLanguageId>
+   </gss:Publication>
+
+It this case, the publication tracks all accepted changes that intersect the
+region of Gatineau, Quebec for the feature type named "qc:Roads".
+
+Next, a subscription must be created so that a notification is sent whenever a
+new, accepted, change appears in the "Gatineau Changes" publication.  Here is an
+example of such a subscription:
+
+[source,xml]
+   <?xml version="1.0" encoding="UTF-8"?>
+   <gss:Subscription
+      xmlns:gss="http://www.opengis.net/gss/1.0"
+      xmlns:gml="http://www.opengis.net/gml/3.2"
+      xmlns:pubsub="http://www.opengis.net/pubsub/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.opengis.net/gss/1.0 ../gss.xsd">
+      <pubsub:SubscriptionIdentifier/>
+      <pubsub:PublicationIdentifier>urn:uuid:a632acb0-4680-43da-924c-5ff7629fc04e</pubsub:PublicationIdentifier>
+      <pubsub:TerminationTime gml:id="ID1">
+         <gml:timePosition>2019-01-01T00:00:00</gml:timePosition>
+      </pubsub:TerminationTime>
+      <pubsub:DeliveryLocation>sync:http://www.externalserver.com/wfs.cgi,http://www.externalserver.com/Convert.xslt</pubsub:DeliveryMethod>
+      <pubsub:ContentType>application/atom+xml</pubsub:ContentType>
+   </gss:Subscription>
+
+This subscription indicates that whenever a new entry appears in the
+"Gatineau Changes" publication, a notification will be sent to the specified
+delivery location.
+
+Because the specified delivery protocol is "sync", the GSS will push all entries
+from the "Gatineau Changes" publication to the specified external data server
+with the base URL http://www.externalserver.com/wfs.  Furthermore, because the
+schemas of the protected data server and the external data server are different,
+the GSS shall apply a transformation, Convert.xslt, to the transactions from the
+replication feed before posting them to the external data server.

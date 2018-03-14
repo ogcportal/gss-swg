@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 113 {set:cellbgcolor:#CACCCE}|/req/core/113
+2+|The media type application/atomsvc+xml shall be used when returning the AtomPub Service Document.
+|===

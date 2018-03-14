@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 96* {set:cellbgcolor:#CACCCE}|/req/core/96
+2+|In order to conform to the AtomPub specification (see IETF RFC 5023) the embedded AtomPub Service Document shall also be independently addressable via URL.
+|===

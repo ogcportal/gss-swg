@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 74* {set:cellbgcolor:#CACCCE}|/req/core/74
+2+|The HTTP status code for the response to a GetCapabilities operation shall be set to 200.
+|===

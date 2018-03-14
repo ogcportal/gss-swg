@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 79* {set:cellbgcolor:#CACCCE}|/req/core/79
+2+|Each entry in a base feed shall be accessible via a URI that is a combination of the feed's base URI and the identifier of the feed entry.
+|===

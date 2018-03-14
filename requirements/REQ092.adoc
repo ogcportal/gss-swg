@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 092* {set:cellbgcolor:#CACCCE}|/req/sub/soap/092
+2+|Sending a SOAP message, whose body contains an XML-encoded Resume request (see <<ResumeSoapBinding>>), to the Post URL listed in the server's capabilities document for the Resume operation, using the HTTP POST method, shall generate a SOAP message whose body contains a pubsub:ResumeResponse message (see <<ResumeResponse>>) or a SOAP fault message containing an exception report (see <<Exception>>) if the operation fails.
+|===

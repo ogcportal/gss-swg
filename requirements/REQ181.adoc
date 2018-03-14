@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 181* {set:cellbgcolor:#CACCCE}|/req/core/181
+2+|In response to an AcceptChange operation the server shall encode the entry identifier of the accepted change using the gss:EntryIdentifier element in the response.
+|===

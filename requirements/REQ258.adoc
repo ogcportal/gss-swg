@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 258* {set:cellbgcolor:#CACCCE}|/req/sub/rest/258
+2+|Sending an HTTP POST request, with the request body containing a gss:Subscription element (see <<SubscriptionEncoding>>), to the server's /subscriptions endpoint (see <<SubscriptionURIs>>) shall create a new subscription.
+|===

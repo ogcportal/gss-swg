@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 125* {set:cellbgcolor:#CACCCE}|/req/core/125
+2+|The feed attribute on an Insert, Update or Delete action shall be used to identify the feed that shall be operated upon by each action.
+|===

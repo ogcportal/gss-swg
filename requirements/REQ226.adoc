@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 226* {set:cellbgcolor:#CACCCE}|/req/core/rest/226
+2+|The HTTP status code for the response to a REST RemovePublication operation shall be set to 200.
+|===

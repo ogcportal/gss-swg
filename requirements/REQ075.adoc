@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 75* {set:cellbgcolor:#CACCCE}|/req/core/75
+2+|Table X describes the minimum set of properties that shall be encoded in a Replication Feed Entry.
+|===

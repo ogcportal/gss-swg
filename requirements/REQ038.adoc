@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 38* {set:cellbgcolor:#CACCCE}|/req/pub/38
+2+|For this candidate standard, the version parameter of a GSS request shall be set to "1.0.0".
+|===

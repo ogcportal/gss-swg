@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 134* {set:cellbgcolor:#CACCCE}|/req/core/134
+2+|In the event that a Transaction operation fails an exceptions shall be raised as described in 7.5.
+|===

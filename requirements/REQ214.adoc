@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 214* {set:cellbgcolor:#CACCCE}|/req/pub/rest/214
+2+|The body of the response to a CreatePublication operation shall contain a pubsub:CreatePublicationResponse element.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 40* {set:cellbgcolor:#CACCCE}|/req/sub/40
+2+|In the event that a Geo-Synchronization Service encounters an error while processing a request or receives an unrecognized request it shall generate an XML document indicating that an error has occurred. 
+|===

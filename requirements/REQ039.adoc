@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 39* {set:cellbgcolor:#CACCCE}|/req/core/39
+2+|All dates and times (e.g. for the pubsub:TerminationTime) shall be specified using Greenwich Mean Time (GMT).
+|===

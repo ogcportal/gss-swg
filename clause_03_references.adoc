@@ -1,0 +1,23 @@
+== References
+
+The following normative documents contain provisions that, through reference in this text, constitute provisions of this document. For dated references, subsequent amendments to, or revisions of, any of these publications do not apply. For undated references, the latest edition of the normative document referred to applies.
+
+* IETF RFC 2368, The mailto URL Scheme (July 1998)
+* IETF RFC 2616, Hypertext Transfer Protocol -- HTTP/1.1 (June 1999)
+* IETF RFC 3920, Extensible Messaging and Presence Protocol (XMPP): Core (October 2004)
+* IETF RFC 3986, Uniform Resource Identifier (URI): Generic Syntax (January 2005)
+* IETF RFC 4287, The Atom Syndication Format (December 2005)
+* IETF RFC 5023, The Atom Publishing Protocol (October 2007)
+* OGC 09-025r2, OGC® Web Feature Service 2.0 Interface Standard, version 2.0.2, July 2010
+* OGC 09-026r2, OGC® Filter Encoding 2.0 Encoding Specification, version 2.0.2, July 2010
+* OGC 10-100r3, Geography Markup Language (GML) simple feature profile, version 2.0, April 2012
+* OGC 17-002r1, OGC GeoRSS Encoding Standard, version 1.0, August 2017 
+* OGC 06-121r9, OGC Web Service Common Implementation Specification, version 2.0, April 2010
+* OGC 07-036, OpenGIS Geography Markup Language (GML) Encoding Standard, version 3.2.1, August 2007
+* OGC 12-176r7, OGC® Catalogue Service 3.0 Specification - HTTP Protocol Binding, version 3.0, December 2012
+* OGC 10-032r8, OGC® OpenSearch Geo and Time Extensions, version 1.0.0, April 2014
+* OpenSearch, OpenSearch v1.1 (Draft 4)
+* W3C XML, Extensible Markup Language (XML) 1.0 (Third Edition), W3C Recommendation (4 Feb 2004)
+* W3C XML Namespace, Namespaces in XML, W3C Recommendation (14 JAN 1999)
+* W3C XML Schema Part 1, XML Schema Part 1: Structures, W3C Recommendation (2 May 2001)
+* W3C XML Schema Part 2, XML Schema Part 2: Datatypes, W3C Recommendation (2 May 2001)

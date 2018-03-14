@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 163* {set:cellbgcolor:#CACCCE}|/req/core/163
+2+|The response to a GetEntries operation, using the default output format, shall be an ATOM feed (see IETF RFC 4287) with the mime type of application/atom+xml.
+|===

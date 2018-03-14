@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 25* {set:cellbgcolor:#CACCCE}|/req/core/25
+2+|The Resolution Feed shall be used to provide feedback to users who have posted items to the Proposed Change Feed.
+|===

@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 97* {set:cellbgcolor:#CACCCE}|/req/core/97
+2+|In order to conform to the OpenSearch specification (see OpenSearch) the embedded OpenSearch Description document shall also be independently addressable via URL.
+|===

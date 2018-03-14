@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 173* {set:cellbgcolor:#CACCCE}|/req/core/173
+2+|Upon receiving an AcceptChange request and successfully applying the change to the target WFS, the server shall create an entry is the Resolution feed indicating that the specified change has been accepted.  The entry shall be encoded according to the content rules specified in Table X.
+|===

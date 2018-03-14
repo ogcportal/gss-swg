@@ -1,0 +1,10 @@
+[appendix]
+:appendix-caption: Annex
+== Consolidated schemas (Normative)
+
+The consolidated schema for the Geo-Synchronization service can be found at:
+
+http://www.pvretano.com/schemas/gss/1.0.0
+
+This is a temporary location that shall eventually be updated to point to a
+location in the OGC schema repository.

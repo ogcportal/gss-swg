@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 291* {set:cellbgcolor:#CACCCE}|/req/sub/pox/291
+2+|Sending an XML-encoded Resume message to the Post URL listed in the server's capabilities document for the Resume operation, using the HTTP POST method, shall generate an XML-encoded response document containing a pubsub:ResumeResponse message or an exceptions report (see <<Exception>>) if the operation fails.
+|===

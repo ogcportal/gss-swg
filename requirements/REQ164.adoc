@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 164* {set:cellbgcolor:#CACCCE}|/req/core/164
+2+|The response to a GetEntries operation shall contain all entries that satisfy the specified query predicates and presentation parameters.
+|===

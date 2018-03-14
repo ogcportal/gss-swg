@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 270* {set:cellbgcolor:#CACCCE}|/req/sub/270
+2+|An XML-encoded Pause operation shall contain a pubsub:SubscriptionIdentifier element identifying a subscription to be paused. 
+|===

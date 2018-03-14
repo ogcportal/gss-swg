@@ -1,0 +1,5 @@
+[width="90%",cols="20%,80%"]
+|===
+|*Req 20* {set:cellbgcolor:#CACCCE}|/req/core/20
+2+|The service shall cross link the corresponding events in the Change Proposal event channel and the Resolution event channel so that the disposition of the proposed change can be determined by following either event channel.  
+|===
